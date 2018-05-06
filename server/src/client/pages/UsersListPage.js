@@ -26,7 +26,9 @@ class UsersListPage extends Component {
 }
 
 function mapStateToProps(state) {
-    return { users: state.users }
+    return {
+        users: state.users
+    }
 }
 
 function loadData(store) {
@@ -35,6 +37,6 @@ function loadData(store) {
 
 
 export default {
-    loadData: loadData,
+    loadData,
     component: connect(mapStateToProps, { fetchUsers })(UsersListPage)
 }

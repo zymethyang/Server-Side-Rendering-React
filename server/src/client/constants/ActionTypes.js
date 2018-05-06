@@ -1,0 +1,11 @@
+export const FETCH_USERS = 'fetch_users';
+export const FETCH_CURRENT_USER = 'fetch_current_user';
+export const GET_VIDEO_DETAIL_FROM_ID = 'GET_VIDEO_DETAIL_FROM_ID';
+export const GET_NEWES_VIDEO = 'GET_NEWES_VIDEO';
+export const GET_RELATED_VIDEO = 'GET_RELATED_VIDEO';
+export const GET_TRENDING_VIDEO = 'GET_TRENDING_VIDEO';
+export const GET_TRENDING_MUSIC = 'GET_TRENDING_MUSIC';
+export const GET_TRENDING_MOVIE = 'GET_TRENDING_MOVIE';
+export const GET_TRENDING_GAME = 'GET_TRENDING_GAME';
+export const GET_TRENDING_SPORT = 'GET_TRENDING_SPORT';
+export const GET_SEARCH = 'GET_SEARCH';
