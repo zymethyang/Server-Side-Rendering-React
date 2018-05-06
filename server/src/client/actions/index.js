@@ -7,27 +7,12 @@ import trendingAPI from '../utils/trendingAPI';
 import trendingCategory from '../utils/trendingCategory';
 import searchAPI from '../utils/searchAPI';
 
-export const fetchUsers = () => async (dispatch, getState) => {
-    const res = await axios.get('http://react-ssr-api.herokuapp.com/users');
-    dispatch({
-        type: Type.FETCH_USERS,
-        payload: res
-    });
-};
-
-export const fetchCurrentUser = () => async (dispatch, getState) => {
-    const res = await axios.get('http://react-ssr-api.herokuapp.com/current_user');
-    dispatch({
-        type: Type.FETCH_CURRENT_USER,
-        payload: res
-    })
-}
 
 export const get_player = (id) => async (dispatch, getState) => {
     const res = await callApi(id);
     dispatch({
         type: Type.GET_VIDEO_DETAIL_FROM_ID,
-        player: data
+        player: res.data
     })
 }
 
@@ -43,7 +28,7 @@ export const get_related_video = (id) => async (dispatch, getState) => {
     const res = await getRelated(id);
     dispatch({
         type: Type.GET_RELATED_VIDEO,
-        related: data
+        related: res.data
     })
 }
 
@@ -51,16 +36,16 @@ export const get_trending_video = () => async (dispatch, getState) => {
     const res = await trendingAPI();
     dispatch({
         type: Type.GET_TRENDING_VIDEO,
-        trending: data
+        trending: res.data
     })
 }
 
 
 export const get_trending_music = () => async (dispatch, getState) => {
-    const res = trendingCategory('10');
+    const res = await trendingCategory('10');
     dispatch({
         type: Type.GET_TRENDING_MUSIC,
-        music: data
+        music: res.data
     })
 }
 
@@ -69,7 +54,7 @@ export const get_trending_movie = () => async (dispatch, getState) => {
     const res = await trendingCategory('1');
     dispatch({
         type: Type.GET_TRENDING_MOVIE,
-        movie: data
+        movie: res.data
     })
 }
 
@@ -77,7 +62,7 @@ export const get_trending_game = () => async (dispatch, getState) => {
     const res = await trendingCategory('20');
     dispatch({
         type: Type.GET_TRENDING_GAME,
-        game: data
+        game: res.data
     })
 }
 
@@ -85,7 +70,7 @@ export const get_trending_sport = () => async (dispatch, getState) => {
     const res = await trendingCategory('17');
     dispatch({
         type: Type.GET_TRENDING_SPORT,
-        sport: data
+        sport: res.data
     })
 }
 
@@ -93,7 +78,7 @@ export const get_search = (key) => async (dispatch, getState) => {
     const res = await searchAPI(key);
     dispatch({
         type: Type.GET_SEARCH,
-        search: data
+        search: res.data
     })
 }
 

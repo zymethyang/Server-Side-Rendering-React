@@ -13,13 +13,16 @@ app.get('/', (req, res) => {
     const store = createStore(req);
     console.log(store);
 
-    const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-        return route.loadData ? route.loadData(store) : null;
-    })
-    
-    Promise.all(promises).then(() => {
+    Routes[0].routes[0].trending_movie(store);
+    Routes[0].routes[0].newest_video(store);
+    Routes[0].routes[0].trending_video(store);
+    Routes[0].routes[0].trending_music(store);
+    //Routes[0].routes[0].trending_sport(store);
+    //Routes[0].routes[0].trending_game(store);
+
+    setTimeout(() => {
         res.send(renderer(req, store));
-    });
+    }, 2000);
 
 });
 

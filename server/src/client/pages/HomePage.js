@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get_newest_video, get_trending_video, get_trending_music, get_trending_movie, get_trending_game, get_trending_sport, fetchUsers } from '../actions/index';
+import { get_newest_video, get_trending_video, get_trending_music, get_trending_movie, get_trending_game, get_trending_sport } from '../actions/index';
+import Home from '../components/home';
 
 class HomePage extends Component {
     render() {
         return (
             <div>
-                This is home
+                <Home />
             </div>
         );
     }
@@ -14,7 +15,6 @@ class HomePage extends Component {
 
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         users: state.users
     }
@@ -45,17 +45,14 @@ function trending_sport(store) {
     return store.dispatch(get_trending_sport());
 }
 
-function loadData(store) {
-    return store.dispatch(fetchUsers());
-}
+
 
 export default {
-    loadData,
     newest_video,
     trending_video,
     trending_music,
     trending_movie,
     trending_game,
     trending_sport,
-    component: connect(mapStateToProps, { get_newest_video, get_trending_video, get_trending_music, get_trending_movie, get_trending_game, get_trending_sport, fetchUsers })(HomePage)
+    component: connect(mapStateToProps, { get_newest_video, get_trending_video, get_trending_music, get_trending_movie, get_trending_game, get_trending_sport })(HomePage)
 }

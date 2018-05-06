@@ -64,7 +64,7 @@ class Home extends Component {
         );
     }
 
-    renderData = (data) => {
+    renderData(data) {
         var result = null;
         result = data.map((value, index) => {
             return (
@@ -87,7 +87,7 @@ class Home extends Component {
         return result;
     }
 
-    showViewCount = (data) => {
+    showViewCount(data) {
         if ((data / 1000) > 0 && (data / 1000) < 1000) {
             return `${(data / 1000).toFixed(1)} Nghìn views`;
         } else if ((data / 1000000) > 0 && (data / 1000000) < 1000) {
