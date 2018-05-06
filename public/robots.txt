@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+
+Disallow: /moderator/
+
+Sitemap: https://etube.ga/sitemaps/sitemap-0.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-1.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-2.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-3.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-4.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-5.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-6.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-7.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-8.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-9.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-10.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-11.xml
+
+Sitemap: https://etube.ga/sitemaps/sitemap-12.xml
+
