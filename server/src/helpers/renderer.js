@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 
-export default (req, store) => {
+export default (req, store, id) => {
+    //console.log(store.getState().player.items[0].id);
     const content = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.url} context={{}}>
@@ -19,12 +20,21 @@ export default (req, store) => {
     return `
         <html>
             <head>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
             </head>
             <body>
                 <div id="root">${content}</div>
+                <script src="https://content.jwplatform.com/libraries/5d9utaew.js"></script>
                 <script>
                     window.INITIAL_STATE = ${serialize(store.getState())}
+                    cfg = {
+                        file: 'https://www.youtube.com/watch?v=${id}',
+                        width: '100%',
+                        height: '100%'
+                    };
+                    jwplayer("frame").setup(cfg);
                 </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
                 <script src="bundle.js"></script>
             </body>
         </html>

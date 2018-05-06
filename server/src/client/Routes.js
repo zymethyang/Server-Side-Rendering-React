@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import App from './App';
+import viewPage from './pages/viewPage';
 
 
 export default [
@@ -12,6 +13,10 @@ export default [
                 ...HomePage,
                 path: '/',
                 exact: true
+            },
+            {
+                ...viewPage,
+                path: '/view/:title/:id'
             }
         ]
     }
