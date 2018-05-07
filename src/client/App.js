@@ -1,13 +1,13 @@
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
-import HeaderPage from './pages/headerPage';
+import Header from './components/header';
 import { fetchCurrentUser } from './actions/index';
 
 
 const App = ({ route }) => {
     return (
         <div>
-            <HeaderPage />
+            <Header />
             {renderRoutes(route.routes)}
         </div >
     );
