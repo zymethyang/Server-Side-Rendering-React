@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get_newest_video, get_trending_video, get_trending_music, get_trending_movie, get_trending_game, get_trending_sport } from '../actions/index';
 import Home from '../components/home';
+import { Helmet } from "react-helmet";
 
 class HomePage extends Component {
     render() {
         return (
             <div>
+                <Helmet>
+                    <title>Etube.ga - New video sharing platform.</title>
+                    <meta name="description" content="Xem phim mới miễn phí nhanh chất lượng cao. Xem Phim online Việt Sub, Thuyết minh, lồng tiếng chất lượng HD. Xem phim nhanh online chất lượng cao" />
+                    <meta property="og:title" content="Phim Mới | Phim hay | Xem phim nhanh | Xem phim online | Phim HD vietsub hay nhất" />
+                    <meta property="og:description" content="Xem phim mới miễn phí nhanh chất lượng cao. Xem Phim online Việt Sub, Thuyết minh, lồng tiếng chất lượng HD. Xem phim nhanh online chất lượng cao" />
+                </Helmet>
                 <Home />
             </div>
         );

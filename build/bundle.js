@@ -95,10 +95,16 @@ module.exports = require("react");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("axios");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109,7 +115,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.get_search = exports.get_trending_sport = exports.get_trending_game = exports.get_trending_movie = exports.get_trending_music = exports.get_trending_video = exports.get_related_video = exports.get_newest_video = exports.get_player = undefined;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -440,12 +446,6 @@ var get_search = exports.get_search = function get_search(key) {
 };
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -455,10 +455,16 @@ module.exports = require("react-router-dom");
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-config");
+module.exports = require("react-helmet");
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-config");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -500,7 +506,7 @@ exports.default = [_extends({}, _App2.default, {
 })];
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1694,16 +1700,10 @@ var related = exports.related = [{
 }];
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("moment");
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-helmet");
+module.exports = require("moment");
 
 /***/ }),
 /* 11 */
@@ -1732,9 +1732,9 @@ var _createStore = __webpack_require__(35);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
-var _reactRouterConfig = __webpack_require__(6);
+var _reactRouterConfig = __webpack_require__(7);
 
-var _Routes = __webpack_require__(7);
+var _Routes = __webpack_require__(8);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
@@ -1811,19 +1811,19 @@ var _server = __webpack_require__(16);
 
 var _reactRouterDom = __webpack_require__(5);
 
-var _Routes = __webpack_require__(7);
+var _Routes = __webpack_require__(8);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _reactRouterConfig = __webpack_require__(6);
+var _reactRouterConfig = __webpack_require__(7);
 
 var _serializeJavascript = __webpack_require__(34);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _reactHelmet = __webpack_require__(10);
+var _reactHelmet = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1870,13 +1870,15 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 var _home = __webpack_require__(25);
 
 var _home2 = _interopRequireDefault(_home);
+
+var _reactHelmet = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1901,6 +1903,18 @@ var HomePage = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(
+                    _reactHelmet.Helmet,
+                    null,
+                    _react2.default.createElement(
+                        'title',
+                        null,
+                        'Etube.ga - New video sharing platform.'
+                    ),
+                    _react2.default.createElement('meta', { name: 'description', content: 'Xem phim m\u1EDBi mi\u1EC5n ph\xED nhanh ch\u1EA5t l\u01B0\u1EE3ng cao. Xem Phim online Vi\u1EC7t Sub, Thuy\u1EBFt minh, l\u1ED3ng ti\u1EBFng ch\u1EA5t l\u01B0\u1EE3ng HD. Xem phim nhanh online ch\u1EA5t l\u01B0\u1EE3ng cao' }),
+                    _react2.default.createElement('meta', { property: 'og:title', content: 'Phim M\u1EDBi | Phim hay | Xem phim nhanh | Xem phim online | Phim HD vietsub hay nh\u1EA5t' }),
+                    _react2.default.createElement('meta', { property: 'og:description', content: 'Xem phim m\u1EDBi mi\u1EC5n ph\xED nhanh ch\u1EA5t l\u01B0\u1EE3ng cao. Xem Phim online Vi\u1EC7t Sub, Thuy\u1EBFt minh, l\u1ED3ng ti\u1EBFng ch\u1EA5t l\u01B0\u1EE3ng HD. Xem phim nhanh online ch\u1EA5t l\u01B0\u1EE3ng cao' })
+                ),
                 _react2.default.createElement(_home2.default, null)
             );
         }
@@ -1961,7 +1975,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = callApi;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -1988,7 +2002,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = syncData;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2039,7 +2053,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getRelated;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2066,7 +2080,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = trendingAPI;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2093,7 +2107,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getRelated;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2120,7 +2134,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = searchAPI;
 
-var _axios = __webpack_require__(4);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2152,7 +2166,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _data = __webpack_require__(8);
+var _data = __webpack_require__(9);
 
 var constants = _interopRequireWildcard(_data);
 
@@ -2162,9 +2176,9 @@ var functions = _interopRequireWildcard(_functions);
 
 var _reactRouterDom = __webpack_require__(5);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 var act = _interopRequireWildcard(_index);
 
@@ -2399,13 +2413,13 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(6);
+var _reactRouterConfig = __webpack_require__(7);
 
 var _headerPage = __webpack_require__(28);
 
 var _headerPage2 = _interopRequireDefault(_headerPage);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2493,13 +2507,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(5);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 var act = _interopRequireWildcard(_index);
 
-var _moment = __webpack_require__(9);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -2748,15 +2762,15 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 var _view = __webpack_require__(32);
 
 var _view2 = _interopRequireDefault(_view);
 
-var _reactHelmet = __webpack_require__(10);
+var _reactHelmet = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2842,15 +2856,15 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(5);
 
-var _moment = __webpack_require__(9);
+var _moment = __webpack_require__(10);
 
 var moment = _interopRequireWildcard(_moment);
 
-var _data = __webpack_require__(8);
+var _data = __webpack_require__(9);
 
 var data = _interopRequireWildcard(_data);
 
@@ -3577,7 +3591,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.player = exports.related_video = undefined;
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(4);
 
 var related_video = exports.related_video = function related_video(store, id) {
     return store.dispatch((0, _index.get_related_video)(id));
