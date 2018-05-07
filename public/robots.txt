@@ -4,28 +4,120 @@ Allow: /
 
 Disallow: /moderator/
 
+
 Sitemap: http://etube.ga/sitemap-0.xml
+
 
 Sitemap: http://etube.ga/sitemap-1.xml
 
+
 Sitemap: http://etube.ga/sitemap-2.xml
+
 
 Sitemap: http://etube.ga/sitemap-3.xml
 
+
 Sitemap: http://etube.ga/sitemap-4.xml
+
 
 Sitemap: http://etube.ga/sitemap-5.xml
 
+
 Sitemap: http://etube.ga/sitemap-6.xml
+
 
 Sitemap: http://etube.ga/sitemap-7.xml
 
+
 Sitemap: http://etube.ga/sitemap-8.xml
+
 
 Sitemap: http://etube.ga/sitemap-9.xml
 
+
 Sitemap: http://etube.ga/sitemap-10.xml
+
 
 Sitemap: http://etube.ga/sitemap-11.xml
 
+
 Sitemap: http://etube.ga/sitemap-12.xml
+
+
+Sitemap: http://etube.ga/sitemap-13.xml
+
+
+Sitemap: http://etube.ga/sitemap-14.xml
+
+
+Sitemap: http://etube.ga/sitemap-15.xml
+
+
+Sitemap: http://etube.ga/sitemap-16.xml
+
+
+Sitemap: http://etube.ga/sitemap-17.xml
+
+
+Sitemap: http://etube.ga/sitemap-18.xml
+
+
+Sitemap: http://etube.ga/sitemap-19.xml
+
+
+Sitemap: http://etube.ga/sitemap-20.xml
+
+
+Sitemap: http://etube.ga/sitemap-21.xml
+
+
+Sitemap: http://etube.ga/sitemap-22.xml
+
+
+Sitemap: http://etube.ga/sitemap-23.xml
+
+
+Sitemap: http://etube.ga/sitemap-24.xml
+
+
+Sitemap: http://etube.ga/sitemap-25.xml
+
+
+Sitemap: http://etube.ga/sitemap-26.xml
+
+
+Sitemap: http://etube.ga/sitemap-27.xml
+
+
+Sitemap: http://etube.ga/sitemap-28.xml
+
+
+Sitemap: http://etube.ga/sitemap-29.xml
+
+
+Sitemap: http://etube.ga/sitemap-30.xml
+
+
+Sitemap: http://etube.ga/sitemap-31.xml
+
+
+Sitemap: http://etube.ga/sitemap-32.xml
+
+
+Sitemap: http://etube.ga/sitemap-33.xml
+
+
+Sitemap: http://etube.ga/sitemap-34.xml
+
+
+Sitemap: http://etube.ga/sitemap-35.xml
+
+
+Sitemap: http://etube.ga/sitemap-36.xml
+
+
+Sitemap: http://etube.ga/sitemap-37.xml
+
+
+Sitemap: http://etube.ga/sitemap-38.xml
+
