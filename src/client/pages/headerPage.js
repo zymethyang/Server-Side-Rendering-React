@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../components/header.js';
+//import Header from '../components/header';
 import { connect } from 'react-redux';
 import * as act from '../actions/index';
 
@@ -7,7 +7,9 @@ class HeaderPage extends Component {
     render() {
         return (
             <div>
+                {/*
                 <Header sendKeyword={this.sendKeyword} />
+                */}
             </div>
         );
     }
