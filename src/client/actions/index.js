@@ -25,11 +25,14 @@ export const get_newest_video = () => async (dispatch, getState) => {
 }
 
 export const get_related_video = (id) => async (dispatch, getState) => {
-    const res = await getRelated(id);
-    dispatch({
-        type: Type.GET_RELATED_VIDEO,
-        related: res.data
-    })
+    getRelated(id).then(res => {
+        dispatch({
+            type: Type.GET_RELATED_VIDEO,
+            related: res.data
+        })
+    }).catch(er => {
+
+    });
 }
 
 export const get_trending_video = () => async (dispatch, getState) => {

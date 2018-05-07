@@ -100,7 +100,6 @@ class View extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state.related);
     return {
         player: state.player,
         related: state.related

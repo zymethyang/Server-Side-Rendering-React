@@ -5,9 +5,9 @@ import Routers from '../client/Routes';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
+import { Helmet } from 'react-helmet';
 
 export default (req, store, id) => {
-    //console.log(store.getState().player.items[0].id);
     const content = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.url} context={{}}>
@@ -17,9 +17,15 @@ export default (req, store, id) => {
             </StaticRouter>
         </Provider>
     );
+
+    const helmet = Helmet.renderStatic();
+
+
     return `
         <html>
             <head>
+                ${helmet.title.toString()}
+                ${helmet.meta.toString()}
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
             </head>
             <body>

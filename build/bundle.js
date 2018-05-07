@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -129,27 +129,27 @@ var _ActionTypes = __webpack_require__(0);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
-var _callAPI = __webpack_require__(16);
+var _callAPI = __webpack_require__(17);
 
 var _callAPI2 = _interopRequireDefault(_callAPI);
 
-var _syncData = __webpack_require__(17);
+var _syncData = __webpack_require__(18);
 
 var _syncData2 = _interopRequireDefault(_syncData);
 
-var _getRelated = __webpack_require__(19);
+var _getRelated = __webpack_require__(20);
 
 var _getRelated2 = _interopRequireDefault(_getRelated);
 
-var _trendingAPI = __webpack_require__(20);
+var _trendingAPI = __webpack_require__(21);
 
 var _trendingAPI2 = _interopRequireDefault(_trendingAPI);
 
-var _trendingCategory = __webpack_require__(21);
+var _trendingCategory = __webpack_require__(22);
 
 var _trendingCategory2 = _interopRequireDefault(_trendingCategory);
 
-var _searchAPI = __webpack_require__(22);
+var _searchAPI = __webpack_require__(23);
 
 var _searchAPI2 = _interopRequireDefault(_searchAPI);
 
@@ -228,23 +228,18 @@ var get_newest_video = exports.get_newest_video = function get_newest_video() {
 var get_related_video = exports.get_related_video = function get_related_video(id) {
     return function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState) {
-            var res;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
-                            _context3.next = 2;
-                            return (0, _getRelated2.default)(id);
+                            (0, _getRelated2.default)(id).then(function (res) {
+                                dispatch({
+                                    type: Type.GET_RELATED_VIDEO,
+                                    related: res.data
+                                });
+                            }).catch(function (er) {});
 
-                        case 2:
-                            res = _context3.sent;
-
-                            dispatch({
-                                type: Type.GET_RELATED_VIDEO,
-                                related: res.data
-                            });
-
-                        case 4:
+                        case 1:
                         case 'end':
                             return _context3.stop();
                     }
@@ -481,15 +476,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(4);
 
-var _HomePage = __webpack_require__(15);
+var _HomePage = __webpack_require__(16);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _App = __webpack_require__(25);
+var _App = __webpack_require__(26);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _viewPage = __webpack_require__(27);
+var _viewPage = __webpack_require__(28);
 
 var _viewPage2 = _interopRequireDefault(_viewPage);
 
@@ -1702,26 +1697,32 @@ var related = exports.related = [{
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("react-helmet");
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(11);
+__webpack_require__(12);
 
-var _express = __webpack_require__(12);
+var _express = __webpack_require__(13);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _renderer = __webpack_require__(13);
+var _renderer = __webpack_require__(14);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(32);
+var _createStore = __webpack_require__(33);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -1731,7 +1732,7 @@ var _Routes = __webpack_require__(7);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _expressHttpProxy = __webpack_require__(46);
+var _expressHttpProxy = __webpack_require__(47);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
@@ -1775,19 +1776,19 @@ app.listen(port, function () {
 });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1801,7 +1802,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(14);
+var _server = __webpack_require__(15);
 
 var _reactRouterDom = __webpack_require__(4);
 
@@ -1813,14 +1814,15 @@ var _reactRedux = __webpack_require__(3);
 
 var _reactRouterConfig = __webpack_require__(6);
 
-var _serializeJavascript = __webpack_require__(31);
+var _serializeJavascript = __webpack_require__(32);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+var _reactHelmet = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (req, store, id) {
-    //console.log(store.getState().player.items[0].id);
     var content = (0, _server.renderToString)(_react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
@@ -1834,17 +1836,20 @@ exports.default = function (req, store, id) {
             )
         )
     ));
-    return '\n        <html>\n            <head>\n                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n            </head>\n            <body>\n                <div id="root">' + content + '</div>\n                <script src="https://content.jwplatform.com/libraries/5d9utaew.js"></script>\n                <script>\n                    window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\n                    cfg = {\n                        file: \'https://www.youtube.com/watch?v=' + id + '\',\n                        width: \'100%\',\n                        height: \'100%\'\n                    };\n                    jwplayer("frame").setup(cfg);\n                </script>\n                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>\n                <script src="bundle.js"></script>\n            </body>\n        </html>\n    ';
+
+    var helmet = _reactHelmet.Helmet.renderStatic();
+
+    return '\n        <html>\n            <head>\n                ' + helmet.title.toString() + '\n                ' + helmet.meta.toString() + '\n                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n            </head>\n            <body>\n                <div id="root">' + content + '</div>\n                <script src="https://content.jwplatform.com/libraries/5d9utaew.js"></script>\n                <script>\n                    window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\n                    cfg = {\n                        file: \'https://www.youtube.com/watch?v=' + id + '\',\n                        width: \'100%\',\n                        height: \'100%\'\n                    };\n                    jwplayer("frame").setup(cfg);\n                </script>\n                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>\n                <script src="bundle.js"></script>\n            </body>\n        </html>\n    ';
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1864,7 +1869,7 @@ var _reactRedux = __webpack_require__(3);
 
 var _index = __webpack_require__(5);
 
-var _home = __webpack_require__(23);
+var _home = __webpack_require__(24);
 
 var _home2 = _interopRequireDefault(_home);
 
@@ -1940,7 +1945,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1967,7 +1972,7 @@ function callApi(id) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1982,7 +1987,7 @@ var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(18);
+var _config = __webpack_require__(19);
 
 var config = _interopRequireWildcard(_config);
 
@@ -2006,7 +2011,7 @@ function syncData(endpoint) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2018,7 +2023,7 @@ Object.defineProperty(exports, "__esModule", {
 var BASE_URL = exports.BASE_URL = 'https://backend-video.herokuapp.com/';
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2045,7 +2050,7 @@ function getRelated(id) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2072,7 +2077,7 @@ function trendingAPI(id) {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2099,7 +2104,7 @@ function getRelated(id) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2126,7 +2131,7 @@ function searchAPI(key) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2146,7 +2151,7 @@ var _data = __webpack_require__(8);
 
 var constants = _interopRequireWildcard(_data);
 
-var _functions = __webpack_require__(24);
+var _functions = __webpack_require__(25);
 
 var functions = _interopRequireWildcard(_functions);
 
@@ -2340,7 +2345,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Home);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2375,7 +2380,7 @@ var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2391,7 +2396,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(6);
 
-var _Header = __webpack_require__(26);
+var _Header = __webpack_require__(27);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -2414,7 +2419,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2471,7 +2476,7 @@ function mapStateToProps(_ref2) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2491,9 +2496,11 @@ var _reactRedux = __webpack_require__(3);
 
 var _index = __webpack_require__(5);
 
-var _view = __webpack_require__(28);
+var _view = __webpack_require__(29);
 
 var _view2 = _interopRequireDefault(_view);
+
+var _reactHelmet = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2502,8 +2509,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import View from '../components/view';
-
 
 var ViewPage = function (_Component) {
     _inherits(ViewPage, _Component);
@@ -2517,7 +2522,23 @@ var ViewPage = function (_Component) {
     _createClass(ViewPage, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(_view2.default, null);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactHelmet.Helmet,
+                    null,
+                    _react2.default.createElement(
+                        'title',
+                        null,
+                        this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu"
+                    ),
+                    _react2.default.createElement('meta', { property: 'og:title', content: this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu" }),
+                    _react2.default.createElement('meta', { property: 'og:description', content: this.props.player.items.length > 0 ? this.props.player.items[0].snippet.description : "Đang tải dữ liệu" }),
+                    _react2.default.createElement('meta', { property: 'og:keywords', content: this.props.player.items.length > 0 ? JSON.stringify(this.props.player.items[0].snippet.tags) : "Đang tải dữ liệu" })
+                ),
+                _react2.default.createElement(_view2.default, null)
+            );
         }
     }, {
         key: 'componentDidMount',
@@ -2559,7 +2580,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2579,7 +2600,7 @@ var _reactRedux = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(4);
 
-var _moment = __webpack_require__(29);
+var _moment = __webpack_require__(30);
 
 var moment = _interopRequireWildcard(_moment);
 
@@ -2587,7 +2608,7 @@ var _data = __webpack_require__(8);
 
 var data = _interopRequireWildcard(_data);
 
-var _functions = __webpack_require__(30);
+var _functions = __webpack_require__(31);
 
 var functions = _interopRequireWildcard(_functions);
 
@@ -2782,7 +2803,6 @@ var View = function (_Component) {
 }(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-    console.log(state.related);
     return {
         player: state.player,
         related: state.related
@@ -2792,13 +2812,13 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(View);
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2833,13 +2853,13 @@ var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2849,13 +2869,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
-var _reduxThunk = __webpack_require__(33);
+var _reduxThunk = __webpack_require__(34);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(34);
+var _index = __webpack_require__(35);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2868,13 +2888,13 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2884,49 +2904,49 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
-var _usersReducer = __webpack_require__(35);
+var _usersReducer = __webpack_require__(36);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
-var _authReducer = __webpack_require__(36);
+var _authReducer = __webpack_require__(37);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _player = __webpack_require__(37);
+var _player = __webpack_require__(38);
 
 var _player2 = _interopRequireDefault(_player);
 
-var _newest = __webpack_require__(38);
+var _newest = __webpack_require__(39);
 
 var _newest2 = _interopRequireDefault(_newest);
 
-var _related = __webpack_require__(39);
+var _related = __webpack_require__(40);
 
 var _related2 = _interopRequireDefault(_related);
 
-var _trending = __webpack_require__(40);
+var _trending = __webpack_require__(41);
 
 var _trending2 = _interopRequireDefault(_trending);
 
-var _music = __webpack_require__(41);
+var _music = __webpack_require__(42);
 
 var _music2 = _interopRequireDefault(_music);
 
-var _movie = __webpack_require__(42);
+var _movie = __webpack_require__(43);
 
 var _movie2 = _interopRequireDefault(_movie);
 
-var _game = __webpack_require__(43);
+var _game = __webpack_require__(44);
 
 var _game2 = _interopRequireDefault(_game);
 
-var _sport = __webpack_require__(44);
+var _sport = __webpack_require__(45);
 
 var _sport2 = _interopRequireDefault(_sport);
 
-var _search = __webpack_require__(45);
+var _search = __webpack_require__(46);
 
 var _search2 = _interopRequireDefault(_search);
 
@@ -2947,7 +2967,7 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2976,7 +2996,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3005,7 +3025,7 @@ var Type = _interopRequireWildcard(_ActionTypes);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3044,7 +3064,7 @@ var player = function player() {
 exports.default = player;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3075,7 +3095,7 @@ var newest = function newest() {
 exports.default = newest;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3108,7 +3128,7 @@ var related = function related() {
 exports.default = related;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3140,7 +3160,7 @@ var trending = function trending() {
 exports.default = trending;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3172,7 +3192,7 @@ var music = function music() {
 exports.default = music;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3204,7 +3224,7 @@ var movie = function movie() {
 exports.default = movie;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3236,7 +3256,7 @@ var game = function game() {
 exports.default = game;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3268,7 +3288,7 @@ var sport = function sport() {
 exports.default = sport;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3300,7 +3320,7 @@ var search = function search() {
 exports.default = search;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
