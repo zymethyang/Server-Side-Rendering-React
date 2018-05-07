@@ -1755,9 +1755,8 @@ app.get('/', function (req, res) {
     _Routes2.default[0].routes[0].trending_movie(store).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store));
-        }, 300);
+        }, 200);
     });
-
     _Routes2.default[0].routes[0].newest_video(store);
     _Routes2.default[0].routes[0].trending_video(store);
     _Routes2.default[0].routes[0].trending_music(store);
@@ -1767,12 +1766,12 @@ app.get('/', function (req, res) {
 
 app.get('/view/:title/:id', function (req, res, next) {
     var store = (0, _createStore2.default)(req);
-    (0, _dispatch.related_video)(store, req.params.id);
+    (0, _dispatch.related_video)(store, req.params.id).then(function () {
+        setTimeout(function () {
+            res.send((0, _renderer2.default)(req, store, req.params.id));
+        }, 600);
+    });
     (0, _dispatch.player)(store, req.params.id);
-
-    setTimeout(function () {
-        res.send((0, _renderer2.default)(req, store, req.params.id));
-    }, 800);
 });
 
 var port = process.env.PORT || 4000;
@@ -2446,14 +2445,6 @@ var _header = __webpack_require__(29);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _reactRedux = __webpack_require__(2);
-
-var _index = __webpack_require__(3);
-
-var act = _interopRequireWildcard(_index);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2474,31 +2465,14 @@ var HeaderPage = function (_Component) {
     _createClass(HeaderPage, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_header2.default, { sendKeyword: this.sendKeyword })
-            );
-        }
-    }, {
-        key: 'sendKeyword',
-        value: function sendKeyword(key) {
-            //this.props.search(key);
+            return _react2.default.createElement(_header2.default, null);
         }
     }]);
 
     return HeaderPage;
 }(_react.Component);
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
-    return {
-        search: function search(key) {
-            dispatch(act.get_search(key));
-        }
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(HeaderPage);
+exports.default = HeaderPage;
 
 /***/ }),
 /* 29 */
@@ -2527,7 +2501,7 @@ var act = _interopRequireWildcard(_index);
 
 var _moment = __webpack_require__(9);
 
-var moment = _interopRequireWildcard(_moment);
+var _moment2 = _interopRequireDefault(_moment);
 
 var _functions = __webpack_require__(30);
 
@@ -2566,7 +2540,7 @@ var Header = function (_Component) {
 
             this.setState({ value: event.target.value });
             setTimeout(function () {
-                _this2.props.sendKeyword(_this2.state.value);
+                _this2.props.search_dispatch(_this2.state.value);
                 if (_this2.state.value === '') {
                     _this2.setState({
                         showtab: false
@@ -2648,8 +2622,8 @@ var Header = function (_Component) {
                     'div',
                     { className: 'col l4', key: index },
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
+                        'a',
+                        { href: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
                         _react2.default.createElement(
                             'div',
                             { className: 'row', onClick: function onClick() {
@@ -2661,7 +2635,7 @@ var Header = function (_Component) {
                                 _react2.default.createElement(
                                     'figure',
                                     { className: 'sixteen-nine-img' },
-                                    _react2.default.createElement('img', { src: value.snippet.thumbnails.medium.url, style: { width: '100%', height: '100%' } })
+                                    _react2.default.createElement('img', { src: value.snippet.thumbnails.medium.url, style: { width: '100%', height: 80 } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -2685,7 +2659,7 @@ var Header = function (_Component) {
                                 _react2.default.createElement(
                                     'span',
                                     { className: 'row', style: { fontSize: 14 } },
-                                    '' + moment(value.snippet.publishedAt).format('MMMM Do YYYY, h:mm:ss a')
+                                    '' + (0, _moment2.default)(value.snippet.publishedAt).format('MMMM Do YYYY, h:mm:ss a')
                                 )
                             )
                         )
@@ -2712,7 +2686,15 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Header);
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+    return {
+        search_dispatch: function search_dispatch(key) {
+            dispatch(act.get_search(key));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Header);
 
 /***/ }),
 /* 30 */

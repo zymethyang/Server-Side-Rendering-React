@@ -16,28 +16,24 @@ app.get('/', (req, res) => {
     Routes[0].routes[0].trending_movie(store).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store));
-        }, 300)
+        }, 200);
     })
-
     Routes[0].routes[0].newest_video(store);
     Routes[0].routes[0].trending_video(store);
     Routes[0].routes[0].trending_music(store);
     Routes[0].routes[0].trending_sport(store);
     Routes[0].routes[0].trending_game(store);
-
-
 });
 
 
 app.get('/view/:title/:id', (req, res, next) => {
     const store = createStore(req);
-    related_video(store, req.params.id);
+    related_video(store, req.params.id).then(() => {
+        setTimeout(() => {
+            res.send(renderer(req, store, req.params.id));
+        }, 600)
+    });
     player(store, req.params.id);
-
-    setTimeout(() => {
-        res.send(renderer(req, store, req.params.id));
-    }, 800)
-
 });
 
 var port = process.env.PORT || 4000;

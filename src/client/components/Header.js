@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as act from '../actions/index';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as functions from './header/functions';
 
 class Header extends Component {
@@ -18,7 +18,7 @@ class Header extends Component {
     handleChange(event) {
         this.setState({ value: event.target.value });
         setTimeout(() => {
-            this.props.sendKeyword(this.state.value);
+            this.props.search_dispatch(this.state.value);
             if (this.state.value === '') {
                 this.setState({
                     showtab: false
@@ -73,11 +73,11 @@ class Header extends Component {
         result = search.map((value, index) => {
             return (
                 <div className="col l4" key={index}>
-                    <Link to={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
+                    <a href={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
                         <div className="row" onClick={() => this.clickVideo()}>
                             <div className="col l6">
                                 <figure className="sixteen-nine-img">
-                                    <img src={value.snippet.thumbnails.medium.url} style={{ width: '100%', height: '100%' }} />
+                                    <img src={value.snippet.thumbnails.medium.url} style={{ width: '100%', height: 80 }} />
                                 </figure>
                             </div>
                             <div className="col l6">
@@ -89,7 +89,7 @@ class Header extends Component {
                                 <span className="row" style={{ fontSize: 14 }}>{`${moment(value.snippet.publishedAt).format('MMMM Do YYYY, h:mm:ss a')}`}</span>
                             </div>
                         </div>
-                    </Link>
+                    </a>
                 </div>
             );
         })
@@ -109,6 +109,13 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        search_dispatch: (key) => {
+            dispatch(act.get_search(key));
+        }
+    }
+}
 
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
