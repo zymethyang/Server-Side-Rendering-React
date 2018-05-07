@@ -32,14 +32,6 @@ class ViewPage extends Component {
 }
 
 
-function player(store, id) {
-    return store.dispatch(get_player(id));
-}
-
-function related_video(store, id) {
-    return store.dispatch(get_related_video(id));
-}
-
 const mapStateToProps = state => {
     return {
         player: state.player,
@@ -48,7 +40,5 @@ const mapStateToProps = state => {
 }
 
 export default {
-    player,
-    related_video,
-    component: connect(mapStateToProps, { get_player, get_related_video })(ViewPage)
+    component: connect(mapStateToProps, null)(ViewPage)
 }

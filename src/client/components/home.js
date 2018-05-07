@@ -69,7 +69,7 @@ class Home extends Component {
         result = data.map((value, index) => {
             return (
                 <div className="col l2" key={index} style={{ marginTop: 30 }}>
-                    <Link to={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id}`} style={{ color: 'inherit' }}>
+                    <a href={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id}`} style={{ color: 'inherit' }}>
                         <img src={value.snippet.thumbnails.medium.url} style={{ width: '100%', height: 130 }} />
                         <span className="row" style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'justify' }}>
                             {value.snippet.title.length > 15 ? `${value.snippet.title.substring(0, 15)}...` : value.snippet.title}
@@ -80,7 +80,7 @@ class Home extends Component {
                         <span className="row" style={{ fontSize: 14 }}>
                             {this.showViewCount(value.statistics.viewCount)}
                         </span>
-                    </Link>
+                    </a>
                 </div>
             );
         });

@@ -5,6 +5,7 @@ import createStore from './helpers/createStore';
 import { matchRoutes } from 'react-router-config';
 import Routes from './client/Routes';
 import proxy from 'express-http-proxy';
+import { related_video, player } from './client/shared/dispatch';
 
 const app = express();
 
@@ -30,15 +31,12 @@ app.get('/', (req, res) => {
 
 app.get('/view/:title/:id', (req, res, next) => {
     const store = createStore(req);
+    related_video(store, req.params.id);
+    player(store, req.params.id);
 
-    Routes[0].routes[1].related_video(store, req.params.id);
-
-    Routes[0].routes[1].player(store, req.params.id).then(() => {
-        setTimeout(() => {
-            res.send(renderer(req, store, req.params.id));
-        }, 500)
-    })
-
+    setTimeout(() => {
+        res.send(renderer(req, store, req.params.id));
+    }, 800)
 
 });
 
