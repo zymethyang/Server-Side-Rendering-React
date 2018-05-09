@@ -11,7 +11,6 @@ class Home extends Component {
     }
     render() {
         var { trending, music, movie, game, sport } = this.props;
-
         return (
             <div className="row">
                 <div className="wrap">
@@ -69,16 +68,16 @@ class Home extends Component {
         result = data.map((value, index) => {
             return (
                 <div className="col l2" key={index} style={{ marginTop: 30 }}>
-                    <a href={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id}`} style={{ color: 'inherit' }}>
-                        <img src={value.snippet.thumbnails.medium.url} style={{ width: '100%', height: 130 }} />
+                    <a href={`/view/${functions.xoa_dau(value.title)}/${value.source.substring(value.source.length - 11, value.source.length)}`} style={{ color: 'inherit' }}>
+                        <img src={value.thumb} style={{ width: '100%', height: 130 }} />
                         <span className="row" style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'justify' }}>
-                            {value.snippet.title.length > 15 ? `${value.snippet.title.substring(0, 15)}...` : value.snippet.title}
+                            {value.title > 15 ? `${value.title.substring(0, 15)}...` : value.title}
                         </span>
                         <span className="row" style={{ fontSize: 14 }}>
-                            {value.snippet.channelTitle.length > 18 ? `${value.snippet.channelTitle.substring(0, 18)}...` : value.snippet.channelTitle}
+                            {value.title > 18 ? `${value.title.substring(0, 18)}...` : value.title}
                         </span>
                         <span className="row" style={{ fontSize: 14 }}>
-                            {this.showViewCount(value.statistics.viewCount)}
+                            {this.showViewCount(value.views)}
                         </span>
                     </a>
                 </div>

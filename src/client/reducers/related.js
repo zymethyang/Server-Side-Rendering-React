@@ -5,7 +5,7 @@ var initialState = {
 const related = (state = initialState, action) => {
     switch (action.type) {
         case Type.GET_RELATED_VIDEO:
-            state = action.related
+            state = action.related.items
     }
     return state;
 }

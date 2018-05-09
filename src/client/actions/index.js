@@ -30,9 +30,7 @@ export const get_related_video = (id) => async (dispatch, getState) => {
             type: Type.GET_RELATED_VIDEO,
             related: res.data
         })
-    }).catch(er => {
-
-    });
+    }).catch(er => {});
 }
 
 export const get_trending_video = () => async (dispatch, getState) => {

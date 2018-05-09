@@ -4,7 +4,7 @@ var initialState = [];
 const movie = (state = initialState, action) => {
     switch (action.type) {
         case Type.GET_TRENDING_MOVIE:
-            state = action.movie.items
+            state = action.movie
     }
     return state;
 }

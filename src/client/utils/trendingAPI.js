@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export default function trendingAPI(id) {
+export default function trendingAPI() {
     return axios({
         method: 'GET',
-        url: `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics,status&chart=mostPopular&regionCode=VN&maxResults=50&key=AIzaSyAthUU-wzxrK545NRGetzyw-Kig4EtuQtY`,
+        url: `https://backend-video.herokuapp.com/video/get/50`,
     }).catch(err => {
         throw err;
     });

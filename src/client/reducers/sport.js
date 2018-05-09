@@ -4,7 +4,7 @@ var initialState = [];
 const sport = (state = initialState, action) => {
     switch (action.type) {
         case Type.GET_TRENDING_SPORT:
-            state = action.sport.items
+            state = action.sport
     }
     return state;
 }

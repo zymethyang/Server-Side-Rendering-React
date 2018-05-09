@@ -6,7 +6,7 @@ import * as data from '../constants/data';
 import * as functions from './view/functions';
 
 class View extends Component {
-    
+
     render() {
         var { related } = this.props;
         return (
@@ -18,22 +18,22 @@ class View extends Component {
                                 <div id="frame"></div>
                             </div>
                             <span className="row" style={{ fontSize: 20 }}>
-                                {this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : 'Đang tải dữ liệu'}
+                                {this.props.player ? this.props.player.title : 'Đang tải dữ liệu'}
                             </span>
                             <span className="row">
                                 <span className="col l8" style={{ marginTop: 5, marginLeft: -10 }}>
-                                    <label style={{ fontSize: 18 }}>{this.props.player.items.length > 0 ? this.props.player.items[0].statistics.viewCount : 'Đang tải dữ liệu'} views</label>
+                                    <label style={{ fontSize: 18 }}>{this.props.player ? this.props.player.views : 'Đang tải dữ liệu'} views</label>
                                 </span>
                                 <span className="col l4" style={{ float: 'right' }}>
                                     <span className="row">
                                         <span className="col l4" style={{ marginTop: 10 }}>
                                             <span className="row" style={{ fontSize: 20 }}>
-                                                <i className="far fa-heart"></i> {this.props.player.items.length > 0 ? this.props.player.items[0].statistics.likeCount : 'Đang tải dữ liệu'}
+                                                <i className="far fa-heart"></i> {this.props.player ? this.props.player.liked : 'Đang tải dữ liệu'}
                                             </span>
                                         </span>
                                         <span className="col l4" style={{ marginTop: 10 }}>
                                             <span className="row" style={{ fontSize: 20 }}>
-                                                <i className="far fa-thumbs-down"></i> {this.props.player.items.length > 0 ? this.props.player.items[0].statistics.dislikeCount : 'Đang tải dữ liệu'}
+                                                <i className="far fa-thumbs-down"></i> {this.props.player ? this.props.player.disliked : 'Đang tải dữ liệu'}
                                             </span>
                                         </span>
                                         <span className="col l4" style={{ marginTop: 10 }}>
@@ -44,30 +44,32 @@ class View extends Component {
                                     </span>
                                 </span>
                             </span>
+
                             <div className="row" style={{ marginTop: 20 }}>
                                 <div className="col l1" style={{ marginLeft: -10 }}>
                                     <img src={"https://yt3.ggpht.com/a-/AJLlDp11sfCbcpalOfPFl761ncZF3qpZSabYXtXjag=s88-mo-c-c0xffffffff-rj-k-no"} style={{ width: '100%', height: 50, borderRadius: 60 }} />
                                 </div>
                                 <div className="col l8">
                                     <span className="row" style={{ fontSize: 18, fontWeight: 'bold' }}>
-                                        {this.props.player.items.length > 0 ? this.props.player.items[0].snippet.channelTitle : 'Đang tải dữ liệu'}
+                                        {this.props.player ? 'Chưa cập nhật' : 'Đang tải dữ liệu'}
                                     </span>
                                     <span className="row">
                                         <label style={{ fontSize: 14 }}>
-                                            {this.props.player.items.length > 0 ? this.props.player.items[0].snippet.publishedAt : 'Đang tải dữ liệu'}
+                                            {this.props.player ? 'Chưa cập nhật' : 'Đang tải dữ liệu'}
                                         </label>
                                     </span>
                                     <span className="row" style={{ marginTop: 20 }}>
-                                        {this.props.player.items.length > 0 ? this.props.player.items[0].snippet.description : 'Đang tải dữ liệu'}
+                                        {this.props.player ? this.props.player.description : 'Đang tải dữ liệu'}
                                     </span>
                                 </div>
                                 <div className="col l3">
                                     <a className="waves-effect waves-light btn">Subcribe</a>
                                 </div>
                             </div>
+
                         </div>
                         <div className="col l4">
-                            {related.items.length > 0 ? this.renderRelated(related) : <div></div>}
+                            {related.length > 0 ? this.renderRelated(related) : <div></div>}
                         </div>
                     </div>
                 </div>
@@ -77,7 +79,7 @@ class View extends Component {
 
     renderRelated(data) {
         let result = null;
-        result = data.items.map((value, index) => {
+        result = data.map((value, index) => {
             return (
                 <div className="row" key={index}>
                     <Link to={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
@@ -89,7 +91,7 @@ class View extends Component {
                             <span className="row" style={{ fontSize: 13 }}>{value.snippet.channelTitle}</span>
                             {/*
                             <span className="row" style={{ fontSize: 13 }}>{value.items[0].statistics.viewCount} Views</span>
-                            */}
+                                */}
                         </div>
                     </Link>
                 </div >

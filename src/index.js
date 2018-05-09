@@ -28,12 +28,12 @@ app.get('/', (req, res) => {
 
 app.get('/view/:title/:id', (req, res, next) => {
     const store = createStore(req);
-    related_video(store, req.params.id).then(() => {
+    related_video(store, req.params.id);
+    player(store, req.params.id).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store, req.params.id));
-        }, 600)
+        }, 200)
     });
-    player(store, req.params.id);
 });
 
 var port = process.env.PORT || 4000;

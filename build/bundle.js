@@ -1766,12 +1766,12 @@ app.get('/', function (req, res) {
 
 app.get('/view/:title/:id', function (req, res, next) {
     var store = (0, _createStore2.default)(req);
-    (0, _dispatch.related_video)(store, req.params.id).then(function () {
+    (0, _dispatch.related_video)(store, req.params.id);
+    (0, _dispatch.player)(store, req.params.id).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store, req.params.id));
-        }, 600);
+        }, 200);
     });
-    (0, _dispatch.player)(store, req.params.id);
 });
 
 var port = process.env.PORT || 4000;
@@ -1984,7 +1984,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function callApi(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://www.googleapis.com/youtube/v3/videos?id=' + id + '&key=AIzaSyAthUU-wzxrK545NRGetzyw-Kig4EtuQtY%20&part=snippet,contentDetails,statistics,status'
+        url: 'https://backend-video.herokuapp.com/video/id/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -2062,7 +2062,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getRelated(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=' + id + '&type=video&key=AIzaSyAthUU-wzxrK545NRGetzyw-Kig4EtuQtY&maxResults=50'
+        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=' + id + '&type=video&key=AIzaSyCYT5cLNysbX6E8EXJJ7bbgd5Z7LwHBxcg&maxResults=50'
     }).catch(function (err) {
         throw err;
     });
@@ -2086,10 +2086,10 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function trendingAPI(id) {
+function trendingAPI() {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics,status&chart=mostPopular&regionCode=VN&maxResults=50&key=AIzaSyAthUU-wzxrK545NRGetzyw-Kig4EtuQtY'
+        url: 'https://backend-video.herokuapp.com/video/get/50'
     }).catch(function (err) {
         throw err;
     });
@@ -2116,7 +2116,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getRelated(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics,status&chart=mostPopular&regionCode=VN&videoCategoryId=' + id + '&maxResults=50&key=AIzaSyAthUU-wzxrK545NRGetzyw-Kig4EtuQtY'
+        url: 'https://backend-video.herokuapp.com/video/get/50/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -2213,7 +2213,6 @@ var Home = function (_Component) {
                 movie = _props.movie,
                 game = _props.game,
                 sport = _props.sport;
-
 
             return _react2.default.createElement(
                 'div',
@@ -2314,22 +2313,22 @@ var Home = function (_Component) {
                     { className: 'col l2', key: index, style: { marginTop: 30 } },
                     _react2.default.createElement(
                         'a',
-                        { href: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id, style: { color: 'inherit' } },
-                        _react2.default.createElement('img', { src: value.snippet.thumbnails.medium.url, style: { width: '100%', height: 130 } }),
+                        { href: '/view/' + functions.xoa_dau(value.title) + '/' + value.source.substring(value.source.length - 11, value.source.length), style: { color: 'inherit' } },
+                        _react2.default.createElement('img', { src: value.thumb, style: { width: '100%', height: 130 } }),
                         _react2.default.createElement(
                             'span',
                             { className: 'row', style: { fontSize: 14, fontWeight: 'bold', textAlign: 'justify' } },
-                            value.snippet.title.length > 15 ? value.snippet.title.substring(0, 15) + '...' : value.snippet.title
+                            value.title > 15 ? value.title.substring(0, 15) + '...' : value.title
                         ),
                         _react2.default.createElement(
                             'span',
                             { className: 'row', style: { fontSize: 14 } },
-                            value.snippet.channelTitle.length > 18 ? value.snippet.channelTitle.substring(0, 18) + '...' : value.snippet.channelTitle
+                            value.title > 18 ? value.title.substring(0, 18) + '...' : value.title
                         ),
                         _react2.default.createElement(
                             'span',
                             { className: 'row', style: { fontSize: 14 } },
-                            _this2.showViewCount(value.statistics.viewCount)
+                            _this2.showViewCount(value.views)
                         )
                     )
                 );
@@ -2375,27 +2374,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
     var str = title;
-    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-    str = str.replace(/đ/g, "d");
-    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
-    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
-    str = str.replace(/Đ/g, "D");
-    str = str.replace(/[^0-9a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]/gi, '');
-    str = str.replace(/\s+/g, ' ');
-    str.trim();
-    for (var i = 0; i < str.length / 4; i++) {
-        str = str.replace(/ /, '-');
+    if (str) {
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+        str = str.replace(/Đ/g, "D");
+        str = str.replace(/[^0-9a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]/gi, '');
+        str = str.replace(/\s+/g, ' ');
+        str.trim();
+        for (var i = 0; i < str.length / 4; i++) {
+            str = str.replace(/ /, '-');
+        }
+        return str;
+    } else {
+        return '';
     }
-    return str;
 };
 
 /***/ }),
@@ -2415,9 +2418,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(7);
 
-var _header = __webpack_require__(28);
+var _Header = __webpack_require__(28);
 
-var _header2 = _interopRequireDefault(_header);
+var _Header2 = _interopRequireDefault(_Header);
 
 var _index = __webpack_require__(4);
 
@@ -2429,7 +2432,7 @@ var App = function App(_ref) {
     return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_header2.default, null),
+        _react2.default.createElement(_Header2.default, null),
         (0, _reactRouterConfig.renderRoutes)(route.routes)
     );
 };
@@ -2751,11 +2754,11 @@ var ViewPage = function (_Component) {
                     _react2.default.createElement(
                         'title',
                         null,
-                        this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu"
+                        this.props.player ? this.props.player.title : "Đang tải dữ liệu"
                     ),
-                    _react2.default.createElement('meta', { property: 'og:title', content: this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu" }),
-                    _react2.default.createElement('meta', { property: 'og:description', content: this.props.player.items.length > 0 ? this.props.player.items[0].snippet.description : "Đang tải dữ liệu" }),
-                    _react2.default.createElement('meta', { property: 'og:keywords', content: this.props.player.items.length > 0 ? JSON.stringify(this.props.player.items[0].snippet.tags) : "Đang tải dữ liệu" })
+                    _react2.default.createElement('meta', { property: 'og:title', content: this.props.player ? this.props.player.title : "Đang tải dữ liệu" }),
+                    _react2.default.createElement('meta', { property: 'og:description', content: this.props.player ? this.props.player.description : "Đang tải dữ liệu" }),
+                    _react2.default.createElement('meta', { property: 'og:keywords', content: this.props.player ? this.props.player.tags : "Đang tải dữ liệu" })
                 ),
                 _react2.default.createElement(_view2.default, null)
             );
@@ -2866,7 +2869,7 @@ var View = function (_Component) {
                             _react2.default.createElement(
                                 'span',
                                 { className: 'row', style: { fontSize: 20 } },
-                                this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : 'Đang tải dữ liệu'
+                                this.props.player ? this.props.player.title : 'Đang tải dữ liệu'
                             ),
                             _react2.default.createElement(
                                 'span',
@@ -2877,7 +2880,7 @@ var View = function (_Component) {
                                     _react2.default.createElement(
                                         'label',
                                         { style: { fontSize: 18 } },
-                                        this.props.player.items.length > 0 ? this.props.player.items[0].statistics.viewCount : 'Đang tải dữ liệu',
+                                        this.props.player ? this.props.player.views : 'Đang tải dữ liệu',
                                         ' views'
                                     )
                                 ),
@@ -2895,7 +2898,7 @@ var View = function (_Component) {
                                                 { className: 'row', style: { fontSize: 20 } },
                                                 _react2.default.createElement('i', { className: 'far fa-heart' }),
                                                 ' ',
-                                                this.props.player.items.length > 0 ? this.props.player.items[0].statistics.likeCount : 'Đang tải dữ liệu'
+                                                this.props.player ? this.props.player.liked : 'Đang tải dữ liệu'
                                             )
                                         ),
                                         _react2.default.createElement(
@@ -2906,7 +2909,7 @@ var View = function (_Component) {
                                                 { className: 'row', style: { fontSize: 20 } },
                                                 _react2.default.createElement('i', { className: 'far fa-thumbs-down' }),
                                                 ' ',
-                                                this.props.player.items.length > 0 ? this.props.player.items[0].statistics.dislikeCount : 'Đang tải dữ liệu'
+                                                this.props.player ? this.props.player.disliked : 'Đang tải dữ liệu'
                                             )
                                         ),
                                         _react2.default.createElement(
@@ -2935,7 +2938,7 @@ var View = function (_Component) {
                                     _react2.default.createElement(
                                         'span',
                                         { className: 'row', style: { fontSize: 18, fontWeight: 'bold' } },
-                                        this.props.player.items.length > 0 ? this.props.player.items[0].snippet.channelTitle : 'Đang tải dữ liệu'
+                                        this.props.player ? 'Chưa cập nhật' : 'Đang tải dữ liệu'
                                     ),
                                     _react2.default.createElement(
                                         'span',
@@ -2943,13 +2946,13 @@ var View = function (_Component) {
                                         _react2.default.createElement(
                                             'label',
                                             { style: { fontSize: 14 } },
-                                            this.props.player.items.length > 0 ? this.props.player.items[0].snippet.publishedAt : 'Đang tải dữ liệu'
+                                            this.props.player ? 'Chưa cập nhật' : 'Đang tải dữ liệu'
                                         )
                                     ),
                                     _react2.default.createElement(
                                         'span',
                                         { className: 'row', style: { marginTop: 20 } },
-                                        this.props.player.items.length > 0 ? this.props.player.items[0].snippet.description : 'Đang tải dữ liệu'
+                                        this.props.player ? this.props.player.description : 'Đang tải dữ liệu'
                                     )
                                 ),
                                 _react2.default.createElement(
@@ -2966,7 +2969,7 @@ var View = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'col l4' },
-                            related.items.length > 0 ? this.renderRelated(related) : _react2.default.createElement('div', null)
+                            related.length > 0 ? this.renderRelated(related) : _react2.default.createElement('div', null)
                         )
                     )
                 )
@@ -2976,7 +2979,7 @@ var View = function (_Component) {
         key: 'renderRelated',
         value: function renderRelated(data) {
             var result = null;
-            result = data.items.map(function (value, index) {
+            result = data.map(function (value, index) {
                 return _react2.default.createElement(
                     'div',
                     { className: 'row', key: index },
@@ -3246,14 +3249,33 @@ var Type = _interopRequireWildcard(_ActionTypes);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var initialState = {
-    kind: 'youtube#videoListResponse',
-    etag: '"RmznBCICv9YtgWaaa_nWDIH1_GM/KeOik9Ri5nMPZgjDLHtO3tGN6Pc"',
-    pageInfo: {
-        totalResults: 0,
-        resultsPerPage: 0
-    },
-    items: []
+    _id: null,
+    id: null,
+    tags: null,
+    privacy: null,
+    srt: null,
+    remote: null,
+    embed: null,
+    nsfw: null,
+    disliked: null,
+    liked: null,
+    views: null,
+    category: null,
+    description: null,
+    duration: null,
+    thumb: null,
+    title: null,
+    tmp_source: null,
+    source: null,
+    featured: null,
+    date: null,
+    user_id: null,
+    private: null,
+    pub: null,
+    token: null,
+    media: null
 };
+
 var player = function player() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
@@ -3324,7 +3346,7 @@ var related = function related() {
 
     switch (action.type) {
         case Type.GET_RELATED_VIDEO:
-            state = action.related;
+            state = action.related.items;
     }
     return state;
 };
@@ -3356,7 +3378,7 @@ var trending = function trending() {
 
     switch (action.type) {
         case Type.GET_TRENDING_VIDEO:
-            state = action.trending.items;
+            state = action.trending;
     }
     return state;
 };
@@ -3388,7 +3410,7 @@ var music = function music() {
 
     switch (action.type) {
         case Type.GET_TRENDING_MUSIC:
-            state = action.music.items;
+            state = action.music;
     }
     return state;
 };
@@ -3420,7 +3442,7 @@ var movie = function movie() {
 
     switch (action.type) {
         case Type.GET_TRENDING_MOVIE:
-            state = action.movie.items;
+            state = action.movie;
     }
     return state;
 };
@@ -3452,7 +3474,7 @@ var game = function game() {
 
     switch (action.type) {
         case Type.GET_TRENDING_GAME:
-            state = action.game.items;
+            state = action.game;
     }
     return state;
 };
@@ -3484,7 +3506,7 @@ var sport = function sport() {
 
     switch (action.type) {
         case Type.GET_TRENDING_SPORT:
-            state = action.sport.items;
+            state = action.sport;
     }
     return state;
 };

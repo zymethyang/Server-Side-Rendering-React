@@ -1,13 +1,32 @@
 import * as Type from '../constants/ActionTypes';
 var initialState = {
-    kind: 'youtube#videoListResponse',
-    etag: '"RmznBCICv9YtgWaaa_nWDIH1_GM/KeOik9Ri5nMPZgjDLHtO3tGN6Pc"',
-    pageInfo: {
-        totalResults: 0,
-        resultsPerPage: 0
-    },
-    items: []
+    _id: null,
+    id: null,
+    tags: null,
+    privacy: null,
+    srt: null,
+    remote: null,
+    embed: null,
+    nsfw: null,
+    disliked: null,
+    liked: null,
+    views: null,
+    category: null,
+    description: null,
+    duration: null,
+    thumb: null,
+    title: null,
+    tmp_source: null,
+    source: null,
+    featured: null,
+    date: null,
+    user_id: null,
+    private: null,
+    pub: null,
+    token: null,
+    media: null
 };
+
 const player = (state = initialState, action) => {
     switch (action.type) {
         case Type.GET_VIDEO_DETAIL_FROM_ID:

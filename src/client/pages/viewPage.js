@@ -9,10 +9,10 @@ class ViewPage extends Component {
         return (
             <div>
                 <Helmet>
-                    <title>{this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu"}</title>
-                    <meta property="og:title" content={this.props.player.items.length > 0 ? this.props.player.items[0].snippet.title : "Đang tải dữ liệu"} />
-                    <meta property="og:description" content={this.props.player.items.length > 0 ? this.props.player.items[0].snippet.description : "Đang tải dữ liệu"} />
-                    <meta property="og:keywords" content={this.props.player.items.length > 0 ? JSON.stringify(this.props.player.items[0].snippet.tags) : "Đang tải dữ liệu"} />
+                    <title>{this.props.player ? this.props.player.title : "Đang tải dữ liệu"}</title>
+                    <meta property="og:title" content={this.props.player ? this.props.player.title : "Đang tải dữ liệu"} />
+                    <meta property="og:description" content={this.props.player ? this.props.player.description : "Đang tải dữ liệu"} />
+                    <meta property="og:keywords" content={this.props.player ? this.props.player.tags : "Đang tải dữ liệu"} />
                 </Helmet>
                 <View></View>
             </div>
