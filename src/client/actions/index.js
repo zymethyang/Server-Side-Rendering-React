@@ -17,7 +17,7 @@ export const get_player = (id) => async (dispatch, getState) => {
 }
 
 export const get_newest_video = () => async (dispatch, getState) => {
-    const res = await axios.get('http://localhost:4000/video/get/8');
+    const res = await axios.get('http://localhost:5000/video/get/8');
     dispatch({
         type: Type.GET_NEWES_VIDEO,
         newest: res.data
