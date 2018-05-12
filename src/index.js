@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
             res.send(renderer(req, store));
         }, 400);
     })
-    Routes[0].routes[0].newest_video(store);
+    //Routes[0].routes[0].newest_video(store);
     Routes[0].routes[0].trending_video(store);
     Routes[0].routes[0].trending_music(store);
     Routes[0].routes[0].trending_sport(store);

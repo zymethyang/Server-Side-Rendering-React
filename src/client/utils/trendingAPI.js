@@ -3,7 +3,7 @@ import axios from 'axios';
 export default function trendingAPI() {
     return axios({
         method: 'GET',
-        url: `https://backend-video.herokuapp.com/video/get/50`,
+        url: `http://localhost:5000/video/get/50`,
     }).catch(err => {
         throw err;
     });

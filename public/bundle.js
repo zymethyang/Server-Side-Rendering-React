@@ -7218,7 +7218,7 @@ var get_newest_video = exports.get_newest_video = function get_newest_video() {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             _context2.next = 2;
-                            return _axios2.default.get('http://localhost:4000/video/get/8');
+                            return _axios2.default.get('http://localhost:5000/video/get/8');
 
                         case 2:
                             res = _context2.sent;
@@ -57602,7 +57602,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function callApi(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://backend-video.herokuapp.com/video/id/' + id
+        url: 'http://localhost:5000/video/id/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -57707,7 +57707,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function trendingAPI() {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://backend-video.herokuapp.com/video/get/50'
+        url: 'http://localhost:5000/video/get/50'
     }).catch(function (err) {
         throw err;
     });
@@ -57734,7 +57734,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getRelated(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'https://backend-video.herokuapp.com/video/get/50/' + id
+        url: 'http://localhost:5000/video/get/50/' + id
     }).catch(function (err) {
         throw err;
     });
