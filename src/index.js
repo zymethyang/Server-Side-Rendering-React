@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     Routes[0].routes[0].trending_movie(store).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store));
-        }, 1000);
+        }, 400);
     })
     Routes[0].routes[0].newest_video(store);
     Routes[0].routes[0].trending_video(store);
