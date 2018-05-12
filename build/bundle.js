@@ -195,7 +195,7 @@ var get_newest_video = exports.get_newest_video = function get_newest_video() {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             _context2.next = 2;
-                            return _axios2.default.get('http://207.148.28.120:5000/video/get/8');
+                            return _axios2.default.get('https://backend-video.herokuapp.com/video/get/8');
 
                         case 2:
                             res = _context2.sent;
@@ -1752,25 +1752,27 @@ app.use(_express2.default.static('public'));
 
 app.get('/', function (req, res) {
     var store = (0, _createStore2.default)(req);
-    _Routes2.default[0].routes[0].trending_movie(store).then(function () {
+    var newest_video = _Routes2.default[0].routes[0].newest_video(store);
+    var trending_video = _Routes2.default[0].routes[0].trending_video(store);
+    var trending_music = _Routes2.default[0].routes[0].trending_music(store);
+    var trending_sport = _Routes2.default[0].routes[0].trending_sport(store);
+    var trending_game = _Routes2.default[0].routes[0].trending_game(store);
+    var trending_movie = _Routes2.default[0].routes[0].trending_movie(store);
+    Promise.all([newest_video, trending_video, trending_music, trending_sport, trending_game, trending_movie]).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store));
-        }, 400);
+        }, 200);
     });
-    _Routes2.default[0].routes[0].newest_video(store);
-    _Routes2.default[0].routes[0].trending_video(store);
-    _Routes2.default[0].routes[0].trending_music(store);
-    _Routes2.default[0].routes[0].trending_sport(store);
-    _Routes2.default[0].routes[0].trending_game(store);
 });
 
 app.get('/view/:title/:id', function (req, res, next) {
     var store = (0, _createStore2.default)(req);
-    (0, _dispatch.related_video)(store, req.params.id);
-    (0, _dispatch.player)(store, req.params.id).then(function () {
+    var related_video_load = (0, _dispatch.related_video)(store, req.params.id);
+    var player_load = (0, _dispatch.player)(store, req.params.id);
+    Promise.all([related_video_load, player_load]).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store, req.params.id));
-        }, 200);
+        }, 100);
     });
 });
 
@@ -1984,7 +1986,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function callApi(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://207.148.28.120:5000/video/id/' + id
+        url: 'https://backend-video.herokuapp.com/video/id/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -2039,7 +2041,7 @@ function syncData(endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var BASE_URL = exports.BASE_URL = 'http://207.148.28.120:5000/';
+var BASE_URL = exports.BASE_URL = 'https://backend-video.herokuapp.com/';
 
 /***/ }),
 /* 21 */
@@ -2089,7 +2091,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function trendingAPI() {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://207.148.28.120:5000/video/get/50'
+        url: 'https://backend-video.herokuapp.com/video/get/50'
     }).catch(function (err) {
         throw err;
     });
@@ -2116,7 +2118,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getRelated(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://207.148.28.120:5000/video/get/50/' + id
+        url: 'https://backend-video.herokuapp.com/video/get/50/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -2950,8 +2952,8 @@ var View = function (_Component) {
                     'div',
                     { className: 'row', key: index },
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
+                        'a',
+                        { href: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
                         _react2.default.createElement(
                             'div',
                             { className: 'col l6 s12' },
@@ -3218,33 +3220,7 @@ var Type = _interopRequireWildcard(_ActionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = {
-    _id: null,
-    id: null,
-    tags: null,
-    privacy: null,
-    srt: null,
-    remote: null,
-    embed: null,
-    nsfw: null,
-    disliked: null,
-    liked: null,
-    views: null,
-    category: null,
-    description: null,
-    duration: null,
-    thumb: null,
-    title: null,
-    tmp_source: null,
-    source: null,
-    featured: null,
-    date: null,
-    user_id: null,
-    private: null,
-    pub: null,
-    token: null,
-    media: null
-};
+var initialState = {};
 
 var player = function player() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;

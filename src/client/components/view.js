@@ -86,7 +86,7 @@ class View extends Component {
         result = data.map((value, index) => {
             return (
                 <div className="row" key={index}>
-                    <Link to={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
+                    <a href={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
                         <div className="col l6 s12">
                             <img src={`https://i.ytimg.com/vi/${value.id.videoId}/mqdefault.jpg`} style={{ width: '100%', height: 120 }} />
                         </div>
@@ -97,7 +97,7 @@ class View extends Component {
                             <span className="row" style={{ fontSize: 13 }}>{value.items[0].statistics.viewCount} Views</span>
                                 */}
                         </div>
-                    </Link>
+                    </a>
                 </div >
             );
         })
