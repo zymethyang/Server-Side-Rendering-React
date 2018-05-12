@@ -1755,7 +1755,7 @@ app.get('/', function (req, res) {
     _Routes2.default[0].routes[0].trending_movie(store).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store));
-        }, 1000);
+        }, 400);
     });
     _Routes2.default[0].routes[0].newest_video(store);
     _Routes2.default[0].routes[0].trending_video(store);
