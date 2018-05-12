@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     Promise.all([newest_video, trending_video, trending_music, trending_sport, trending_game, trending_movie]).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store));
-        }, 200)
+        }, 600)
     })
 });
 
