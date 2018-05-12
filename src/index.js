@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     Promise.all([newest_video, trending_video, trending_music, trending_sport, trending_game, trending_movie]).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store));
-        }, 200)
+        }, 400)
     })
 });
 
@@ -35,7 +35,7 @@ app.get('/view/:title/:id', (req, res, next) => {
     Promise.all([related_video_load, player_load]).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store, req.params.id));
-        }, 100)
+        }, 200)
     })
 });
 

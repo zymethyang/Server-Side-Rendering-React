@@ -1761,7 +1761,7 @@ app.get('/', function (req, res) {
     Promise.all([newest_video, trending_video, trending_music, trending_sport, trending_game, trending_movie]).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store));
-        }, 200);
+        }, 400);
     });
 });
 
@@ -1772,7 +1772,7 @@ app.get('/view/:title/:id', function (req, res, next) {
     Promise.all([related_video_load, player_load]).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store, req.params.id));
-        }, 100);
+        }, 200);
     });
 });
 
