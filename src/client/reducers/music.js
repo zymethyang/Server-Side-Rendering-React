@@ -1,10 +1,28 @@
 import * as Type from '../constants/ActionTypes';
-var initialState = [];
+import axios from 'axios';
+var initialState = [
+    {
+        title: ' ',
+        thumb: ' ',
+        source: ' '
+    }
+];
 
 const music = (state = initialState, action) => {
     switch (action.type) {
         case Type.GET_TRENDING_MUSIC:
-            state = action.music
+            let tmpVideo = [];
+            action.music.forEach((video, index) => {
+                return axios.get(video.thumb).then(res => {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(() => {
+
+                });
+            })
+            state = tmpVideo;
+            break;
     }
     return state;
 }

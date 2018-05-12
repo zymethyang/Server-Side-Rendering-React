@@ -7,6 +7,7 @@ import Routes from './client/Routes';
 import proxy from 'express-http-proxy';
 import { related_video, player } from './client/shared/dispatch';
 
+
 const app = express();
 
 app.use(express.static('public'));
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
     Routes[0].routes[0].trending_movie(store).then(() => {
         setTimeout(() => {
             res.send(renderer(req, store));
-        }, 200);
+        }, 1000);
     })
     Routes[0].routes[0].newest_video(store);
     Routes[0].routes[0].trending_video(store);

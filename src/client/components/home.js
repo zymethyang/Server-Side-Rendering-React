@@ -4,16 +4,23 @@ import * as functions from './home/functions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as act from '../actions/index';
+import Slider from 'react-slick';
 
 class Home extends Component {
-    componentDidMount() {
 
-    }
     render() {
         var { trending, music, movie, game, sport } = this.props;
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            centerPadding: '0px',
+        };
         return (
             <div className="row">
-                <div className="wrap">
+                <div style={styles.wrap}>
                     <div className="row">
                         <span className="row" style={{ fontSize: 25, fontWeight: 'bold' }}>
                             Phổ biến nhất
@@ -21,41 +28,55 @@ class Home extends Component {
                         <div className="row" style={{ marginTop: 10 }}>
                             <div className="col l12">
                                 <div className="row">
-                                    {trending.length > 0 ? this.renderData(trending) : <div></div>}
+                                    <Slider {...settings}>
+                                        {trending.length > 0 ? this.renderData(trending) : <div></div>}
+                                    </Slider>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="row">
                         <span className="row" style={{ fontSize: 25, fontWeight: 'bold' }}>
                             Âm Nhạc
                         </span>
                         <div className="row" style={{ marginTop: 10 }}>
-                            {trending.length > 0 ? this.renderData(music) : <div></div>}
+                            <Slider {...settings}>
+                                {music.length > 0 ? this.renderData(music) : <div></div>}
+                            </Slider>
                         </div>
                     </div>
+
                     <div className="row">
                         <span className="row" style={{ fontSize: 25, fontWeight: 'bold' }}>
                             Phim
                         </span>
                         <div className="row" style={{ marginTop: 10 }}>
-                            {trending.length > 0 ? this.renderData(movie) : <div></div>}
+                            <Slider {...settings}>
+                                {movie.length > 0 ? this.renderData(movie) : <div></div>}
+                            </Slider>
                         </div>
                     </div>
+
                     <div className="row">
                         <span className="row" style={{ fontSize: 25, fontWeight: 'bold' }}>
                             Thể thao
                         </span>
                         <div className="row" style={{ marginTop: 10 }}>
-                            {trending.length > 0 ? this.renderData(sport) : <div></div>}
+                            <Slider {...settings}>
+                                {sport.length > 0 ? this.renderData(sport) : <div></div>}
+                            </Slider>
                         </div>
                     </div>
+
                     <div className="row">
                         <span className="row" style={{ fontSize: 25, fontWeight: 'bold' }}>
                             Trò chơi
                         </span>
                         <div className="row" style={{ marginTop: 10 }}>
-                            {trending.length > 0 ? this.renderData(game) : <div></div>}
+                            <Slider {...settings}>
+                                {game.length > 0 ? this.renderData(game) : <div></div>}
+                            </Slider>
                         </div>
                     </div>
                 </div>
@@ -69,15 +90,17 @@ class Home extends Component {
             return (
                 <div className="col l2" key={index} style={{ marginTop: 30 }}>
                     <a href={`/view/${functions.xoa_dau(value.title)}/${value.source.substring(value.source.length - 11, value.source.length)}`} style={{ color: 'inherit' }}>
-                        <img src={value.thumb} style={{ width: '100%', height: 130 }} />
-                        <span className="row" style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'justify' }}>
-                            {value.title > 15 ? `${value.title.substring(0, 15)}...` : value.title}
+                        <img src={value.thumb} style={{ width: 300, height: 169, backgroundSize: 'cover' }} />
+                        <span className="row" style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'justify', marginLeft: 1 }}>
+                            {value.title}
                         </span>
+                        {/*
                         <span className="row" style={{ fontSize: 14 }}>
                             {value.title > 18 ? `${value.title.substring(0, 18)}...` : value.title}
                         </span>
+                        */}
                         <span className="row" style={{ fontSize: 14 }}>
-                            {this.showViewCount(value.views)}
+                            {/*this.showViewCount(value.views)*/}
                         </span>
                     </a>
                 </div>
@@ -106,6 +129,14 @@ const mapStateToProps = state => {
     }
 }
 
+const styles = {
+    wrap: {
+        marginLeft: 30,
+        marginTop: 30,
+        marginRight: 30,
+        marginBottom: 30
+    }
+}
 
 
 export default connect(mapStateToProps, null)(Home);

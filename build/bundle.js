@@ -65,6 +65,12 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86,16 +92,10 @@ var GET_TRENDING_SPORT = exports.GET_TRENDING_SPORT = 'GET_TRENDING_SPORT';
 var GET_SEARCH = exports.GET_SEARCH = 'GET_SEARCH';
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react");
 
 /***/ }),
 /* 3 */
@@ -115,11 +115,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.get_search = exports.get_trending_sport = exports.get_trending_game = exports.get_trending_movie = exports.get_trending_music = exports.get_trending_video = exports.get_related_video = exports.get_newest_video = exports.get_player = undefined;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
@@ -476,7 +476,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -486,11 +486,11 @@ var _HomePage = __webpack_require__(17);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _App = __webpack_require__(27);
+var _App = __webpack_require__(28);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _viewPage = __webpack_require__(30);
+var _viewPage = __webpack_require__(31);
 
 var _viewPage2 = _interopRequireDefault(_viewPage);
 
@@ -1728,7 +1728,7 @@ var _renderer = __webpack_require__(15);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(34);
+var _createStore = __webpack_require__(35);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -1738,11 +1738,11 @@ var _Routes = __webpack_require__(8);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _expressHttpProxy = __webpack_require__(48);
+var _expressHttpProxy = __webpack_require__(49);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _dispatch = __webpack_require__(49);
+var _dispatch = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1755,7 +1755,7 @@ app.get('/', function (req, res) {
     _Routes2.default[0].routes[0].trending_movie(store).then(function () {
         setTimeout(function () {
             res.send((0, _renderer2.default)(req, store));
-        }, 200);
+        }, 1000);
     });
     _Routes2.default[0].routes[0].newest_video(store);
     _Routes2.default[0].routes[0].trending_video(store);
@@ -1803,7 +1803,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1819,7 +1819,7 @@ var _reactRedux = __webpack_require__(3);
 
 var _reactRouterConfig = __webpack_require__(7);
 
-var _serializeJavascript = __webpack_require__(33);
+var _serializeJavascript = __webpack_require__(34);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
@@ -1844,7 +1844,7 @@ exports.default = function (req, store, id) {
 
     var helmet = _reactHelmet.Helmet.renderStatic();
 
-    return '\n        <html>\n            <head>\n                ' + helmet.title.toString() + '\n                ' + helmet.meta.toString() + '\n                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n            </head>\n            <body>\n                <div id="root">' + content + '</div>\n                <script src="https://content.jwplatform.com/libraries/5d9utaew.js"></script>\n                <script>\n                    window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\n                    cfg = {\n                        file: \'https://www.youtube.com/watch?v=' + id + '\',\n                        width: \'100%\',\n                        height: \'100%\'\n                    };\n                    jwplayer("frame").setup(cfg);\n                </script>\n                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>\n                <script src="bundle.js"></script>\n            </body>\n        </html>\n    ';
+    return '\n        <html>\n            <head>\n                ' + helmet.title.toString() + '\n                ' + helmet.meta.toString() + '\n                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n                <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />\n                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />\n                <style>\n                .slick-slide {\n                    height:250px;\n                 }\n                 \n                 .slick-slide img {\n                    height:200px;\n                 }\n                </style>\n            </head>\n            <body>\n                <div id="root">' + content + '</div>\n                <script src="https://content.jwplatform.com/libraries/5d9utaew.js"></script>\n                <script>\n                    window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\n                    cfg = {\n                        file: \'https://www.youtube.com/watch?v=' + id + '\',\n                        width: \'100%\',\n                        height: \'100%\'\n                    };\n                    jwplayer("frame").setup(cfg);\n                </script>\n                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>\n                <script src="bundle.js"></script>\n            </body>\n        </html>\n    ';
 };
 
 /***/ }),
@@ -1866,7 +1866,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1975,7 +1975,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = callApi;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2002,7 +2002,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = syncData;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2053,7 +2053,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getRelated;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2080,7 +2080,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = trendingAPI;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2107,7 +2107,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getRelated;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2134,7 +2134,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = searchAPI;
 
-var _axios = __webpack_require__(2);
+var _axios = __webpack_require__(0);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2162,7 +2162,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2181,6 +2181,10 @@ var _reactRedux = __webpack_require__(3);
 var _index = __webpack_require__(4);
 
 var act = _interopRequireWildcard(_index);
+
+var _reactSlick = __webpack_require__(27);
+
+var _reactSlick2 = _interopRequireDefault(_reactSlick);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2202,9 +2206,6 @@ var Home = function (_Component) {
     }
 
     _createClass(Home, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
         key: 'render',
         value: function render() {
             var _props = this.props,
@@ -2214,12 +2215,20 @@ var Home = function (_Component) {
                 game = _props.game,
                 sport = _props.sport;
 
+            var settings = {
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                centerPadding: '0px'
+            };
             return _react2.default.createElement(
                 'div',
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'wrap' },
+                    { style: styles.wrap },
                     _react2.default.createElement(
                         'div',
                         { className: 'row' },
@@ -2237,7 +2246,11 @@ var Home = function (_Component) {
                                 _react2.default.createElement(
                                     'div',
                                     { className: 'row' },
-                                    trending.length > 0 ? this.renderData(trending) : _react2.default.createElement('div', null)
+                                    _react2.default.createElement(
+                                        _reactSlick2.default,
+                                        settings,
+                                        trending.length > 0 ? this.renderData(trending) : _react2.default.createElement('div', null)
+                                    )
                                 )
                             )
                         )
@@ -2253,7 +2266,11 @@ var Home = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'row', style: { marginTop: 10 } },
-                            trending.length > 0 ? this.renderData(music) : _react2.default.createElement('div', null)
+                            _react2.default.createElement(
+                                _reactSlick2.default,
+                                settings,
+                                music.length > 0 ? this.renderData(music) : _react2.default.createElement('div', null)
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -2267,7 +2284,11 @@ var Home = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'row', style: { marginTop: 10 } },
-                            trending.length > 0 ? this.renderData(movie) : _react2.default.createElement('div', null)
+                            _react2.default.createElement(
+                                _reactSlick2.default,
+                                settings,
+                                movie.length > 0 ? this.renderData(movie) : _react2.default.createElement('div', null)
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -2281,7 +2302,11 @@ var Home = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'row', style: { marginTop: 10 } },
-                            trending.length > 0 ? this.renderData(sport) : _react2.default.createElement('div', null)
+                            _react2.default.createElement(
+                                _reactSlick2.default,
+                                settings,
+                                sport.length > 0 ? this.renderData(sport) : _react2.default.createElement('div', null)
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -2295,7 +2320,11 @@ var Home = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'row', style: { marginTop: 10 } },
-                            trending.length > 0 ? this.renderData(game) : _react2.default.createElement('div', null)
+                            _react2.default.createElement(
+                                _reactSlick2.default,
+                                settings,
+                                game.length > 0 ? this.renderData(game) : _react2.default.createElement('div', null)
+                            )
                         )
                     )
                 )
@@ -2304,8 +2333,6 @@ var Home = function (_Component) {
     }, {
         key: 'renderData',
         value: function renderData(data) {
-            var _this2 = this;
-
             var result = null;
             result = data.map(function (value, index) {
                 return _react2.default.createElement(
@@ -2314,22 +2341,13 @@ var Home = function (_Component) {
                     _react2.default.createElement(
                         'a',
                         { href: '/view/' + functions.xoa_dau(value.title) + '/' + value.source.substring(value.source.length - 11, value.source.length), style: { color: 'inherit' } },
-                        _react2.default.createElement('img', { src: value.thumb, style: { width: '100%', height: 130 } }),
+                        _react2.default.createElement('img', { src: value.thumb, style: { width: 300, height: 169, backgroundSize: 'cover' } }),
                         _react2.default.createElement(
                             'span',
-                            { className: 'row', style: { fontSize: 14, fontWeight: 'bold', textAlign: 'justify' } },
-                            value.title > 15 ? value.title.substring(0, 15) + '...' : value.title
+                            { className: 'row', style: { fontSize: 14, fontWeight: 'bold', textAlign: 'justify', marginLeft: 1 } },
+                            value.title
                         ),
-                        _react2.default.createElement(
-                            'span',
-                            { className: 'row', style: { fontSize: 14 } },
-                            value.title > 18 ? value.title.substring(0, 18) + '...' : value.title
-                        ),
-                        _react2.default.createElement(
-                            'span',
-                            { className: 'row', style: { fontSize: 14 } },
-                            _this2.showViewCount(value.views)
-                        )
+                        _react2.default.createElement('span', { className: 'row', style: { fontSize: 14 } })
                     )
                 );
             });
@@ -2358,6 +2376,15 @@ var mapStateToProps = function mapStateToProps(state) {
         game: state.game,
         sport: state.sport
     };
+};
+
+var styles = {
+    wrap: {
+        marginLeft: 30,
+        marginTop: 30,
+        marginRight: 30,
+        marginBottom: 30
+    }
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Home);
@@ -2403,6 +2430,12 @@ var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
 
 /***/ }),
 /* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-slick");
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2412,13 +2445,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(7);
 
-var _Header = __webpack_require__(28);
+var _Header = __webpack_require__(29);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -2442,7 +2475,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2454,7 +2487,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2470,7 +2503,7 @@ var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _functions = __webpack_require__(29);
+var _functions = __webpack_require__(30);
 
 var functions = _interopRequireWildcard(_functions);
 
@@ -2552,7 +2585,7 @@ var Header = function (_Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: 'col l6' },
-                                _react2.default.createElement('input', { value: this.state.value, onChange: this.handleChange, type: 'text' })
+                                _react2.default.createElement('input', { value: this.state.value, onChange: this.handleChange, type: 'text', style: { color: 'white', fontWeight: 'bold' } })
                             ),
                             _react2.default.createElement(
                                 'div',
@@ -2587,7 +2620,7 @@ var Header = function (_Component) {
             result = search.map(function (value, index) {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'col l4', key: index },
+                    { className: 'col l6', key: index },
                     _react2.default.createElement(
                         'a',
                         { href: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
@@ -2602,30 +2635,30 @@ var Header = function (_Component) {
                                 _react2.default.createElement(
                                     'figure',
                                     { className: 'sixteen-nine-img' },
-                                    _react2.default.createElement('img', { src: value.snippet.thumbnails.medium.url, style: { width: '100%', height: 80 } })
+                                    _react2.default.createElement('img', { src: value.snippet.thumbnails.medium.url, style: { width: '100%', height: '23%' } })
                                 )
                             ),
                             _react2.default.createElement(
                                 'div',
-                                { className: 'col l6' },
+                                { className: 'col l6', style: { marginTop: 10 } },
                                 _react2.default.createElement(
-                                    'span',
-                                    { className: 'row', style: { fontSize: 14, fontWeight: 'bold' } },
-                                    value.snippet.title.length > 40 ? value.snippet.title.substring(0, 40).toUpperCase() + '...' : value.snippet.title.toUpperCase()
+                                    'div',
+                                    { className: 'row', style: { fontSize: 14, fontWeight: 'bold', alignItems: 'center', textAlign: 'justify' } },
+                                    value.snippet.title.toUpperCase()
                                 ),
                                 _react2.default.createElement(
-                                    'span',
-                                    { className: 'row', style: { fontSize: 14, fontWeight: 'bold' } },
+                                    'div',
+                                    { className: 'row', style: { fontSize: 14, fontWeight: 'bold', marginTop: -20 } },
                                     value.snippet.channelTitle
                                 ),
                                 _react2.default.createElement(
-                                    'span',
-                                    { className: 'row', style: { fontSize: 14 } },
+                                    'div',
+                                    { className: 'row', style: { fontSize: 14, marginTop: -20 } },
                                     'Ng\xE0y xu\u1EA5t b\u1EA3n'
                                 ),
                                 _react2.default.createElement(
-                                    'span',
-                                    { className: 'row', style: { fontSize: 14 } },
+                                    'div',
+                                    { className: 'row', style: { fontSize: 14, marginTop: -20 } },
                                     '' + (0, _moment2.default)(value.snippet.publishedAt).format('MMMM Do YYYY, h:mm:ss a')
                                 )
                             )
@@ -2664,7 +2697,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Header);
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2699,7 +2732,7 @@ var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
 };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2711,7 +2744,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2719,7 +2752,7 @@ var _reactRedux = __webpack_require__(3);
 
 var _index = __webpack_require__(4);
 
-var _view = __webpack_require__(31);
+var _view = __webpack_require__(32);
 
 var _view2 = _interopRequireDefault(_view);
 
@@ -2793,7 +2826,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2805,7 +2838,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2821,7 +2854,7 @@ var _data = __webpack_require__(9);
 
 var data = _interopRequireWildcard(_data);
 
-var _functions = __webpack_require__(32);
+var _functions = __webpack_require__(33);
 
 var functions = _interopRequireWildcard(_functions);
 
@@ -2854,94 +2887,36 @@ var View = function (_Component) {
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'wrap' },
+                    { style: styles.wrap },
                     _react2.default.createElement(
                         'div',
                         { className: 'row' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'col l8' },
+                            { className: 'col l8 s12' },
                             _react2.default.createElement(
                                 'div',
                                 { className: 'row' },
                                 _react2.default.createElement('div', { id: 'frame' })
                             ),
                             _react2.default.createElement(
-                                'span',
+                                'div',
                                 { className: 'row', style: { fontSize: 20 } },
                                 this.props.player ? this.props.player.title : 'Đang tải dữ liệu'
-                            ),
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'row' },
-                                _react2.default.createElement(
-                                    'span',
-                                    { className: 'col l8', style: { marginTop: 5, marginLeft: -10 } },
-                                    _react2.default.createElement(
-                                        'label',
-                                        { style: { fontSize: 18 } },
-                                        this.props.player ? this.props.player.views : 'Đang tải dữ liệu',
-                                        ' views'
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    'span',
-                                    { className: 'col l4', style: { float: 'right' } },
-                                    _react2.default.createElement(
-                                        'span',
-                                        { className: 'row' },
-                                        _react2.default.createElement(
-                                            'span',
-                                            { className: 'col l4', style: { marginTop: 10 } },
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'row', style: { fontSize: 20 } },
-                                                _react2.default.createElement('i', { className: 'far fa-heart' }),
-                                                ' ',
-                                                this.props.player ? this.props.player.liked : 'Đang tải dữ liệu'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            'span',
-                                            { className: 'col l4', style: { marginTop: 10 } },
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'row', style: { fontSize: 20 } },
-                                                _react2.default.createElement('i', { className: 'far fa-thumbs-down' }),
-                                                ' ',
-                                                this.props.player ? this.props.player.disliked : 'Đang tải dữ liệu'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            'span',
-                                            { className: 'col l4', style: { marginTop: 10 } },
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'row', style: { fontSize: 20 } },
-                                                _react2.default.createElement('i', { className: 'fa fa-share' })
-                                            )
-                                        )
-                                    )
-                                )
                             ),
                             _react2.default.createElement(
                                 'div',
                                 { className: 'row', style: { marginTop: 20 } },
                                 _react2.default.createElement(
                                     'div',
-                                    { className: 'col l1', style: { marginLeft: -10 } },
-                                    _react2.default.createElement('img', { src: "https://yt3.ggpht.com/a-/AJLlDp11sfCbcpalOfPFl761ncZF3qpZSabYXtXjag=s88-mo-c-c0xffffffff-rj-k-no", style: { width: '100%', height: 50, borderRadius: 60 } })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
                                     { className: 'col l8' },
                                     _react2.default.createElement(
-                                        'span',
+                                        'div',
                                         { className: 'row', style: { fontSize: 18, fontWeight: 'bold' } },
                                         this.props.player ? 'Chưa cập nhật' : 'Đang tải dữ liệu'
                                     ),
                                     _react2.default.createElement(
-                                        'span',
+                                        'div',
                                         { className: 'row' },
                                         _react2.default.createElement(
                                             'label',
@@ -2950,25 +2925,16 @@ var View = function (_Component) {
                                         )
                                     ),
                                     _react2.default.createElement(
-                                        'span',
-                                        { className: 'row', style: { marginTop: 20 } },
+                                        'div',
+                                        { className: 'row', style: { marginTop: 20, textAlign: 'justify' } },
                                         this.props.player ? this.props.player.description : 'Đang tải dữ liệu'
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'col l3' },
-                                    _react2.default.createElement(
-                                        'a',
-                                        { className: 'waves-effect waves-light btn' },
-                                        'Subcribe'
                                     )
                                 )
                             )
                         ),
                         _react2.default.createElement(
                             'div',
-                            { className: 'col l4' },
+                            { className: 'col l4 s12' },
                             related.length > 0 ? this.renderRelated(related) : _react2.default.createElement('div', null)
                         )
                     )
@@ -2988,21 +2954,16 @@ var View = function (_Component) {
                         { to: '/view/' + functions.xoa_dau(value.snippet.title) + '/' + value.id.videoId, style: { color: 'inherit' } },
                         _react2.default.createElement(
                             'div',
-                            { className: 'col l6' },
-                            _react2.default.createElement('img', { src: 'https://i.ytimg.com/vi/' + value.id.videoId + '/mqdefault.jpg', style: { width: '100%', height: 100 } })
+                            { className: 'col l6 s12' },
+                            _react2.default.createElement('img', { src: 'https://i.ytimg.com/vi/' + value.id.videoId + '/mqdefault.jpg', style: { width: '100%', height: 120 } })
                         ),
                         _react2.default.createElement(
                             'div',
-                            { className: 'col l6' },
+                            { className: 'col l6 s12' },
                             _react2.default.createElement(
-                                'span',
-                                { className: 'row', style: { fontSize: 13, fontWeight: 'bold' } },
+                                'div',
+                                { className: 'row', style: { fontSize: 13, fontWeight: 'bold', textAlign: 'justify' } },
                                 value.snippet.title
-                            ),
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'row', style: { fontSize: 13 } },
-                                value.snippet.channelTitle
                             )
                         )
                     )
@@ -3015,6 +2976,15 @@ var View = function (_Component) {
     return View;
 }(_react.Component);
 
+var styles = {
+    wrap: {
+        marginLeft: 30,
+        marginTop: 30,
+        marginRight: 30,
+        marginBottom: 30
+    }
+};
+
 var mapStateToProps = function mapStateToProps(state) {
     return {
         player: state.player,
@@ -3025,7 +2995,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(View);
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3060,13 +3030,13 @@ var xoa_dau = exports.xoa_dau = function xoa_dau(title) {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3078,11 +3048,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(11);
 
-var _reduxThunk = __webpack_require__(35);
+var _reduxThunk = __webpack_require__(36);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(36);
+var _index = __webpack_require__(37);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -3095,13 +3065,13 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3113,47 +3083,47 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(11);
 
-var _usersReducer = __webpack_require__(37);
+var _usersReducer = __webpack_require__(38);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
-var _authReducer = __webpack_require__(38);
+var _authReducer = __webpack_require__(39);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _player = __webpack_require__(39);
+var _player = __webpack_require__(40);
 
 var _player2 = _interopRequireDefault(_player);
 
-var _newest = __webpack_require__(40);
+var _newest = __webpack_require__(41);
 
 var _newest2 = _interopRequireDefault(_newest);
 
-var _related = __webpack_require__(41);
+var _related = __webpack_require__(42);
 
 var _related2 = _interopRequireDefault(_related);
 
-var _trending = __webpack_require__(42);
+var _trending = __webpack_require__(43);
 
 var _trending2 = _interopRequireDefault(_trending);
 
-var _music = __webpack_require__(43);
+var _music = __webpack_require__(44);
 
 var _music2 = _interopRequireDefault(_music);
 
-var _movie = __webpack_require__(44);
+var _movie = __webpack_require__(45);
 
 var _movie2 = _interopRequireDefault(_movie);
 
-var _game = __webpack_require__(45);
+var _game = __webpack_require__(46);
 
 var _game2 = _interopRequireDefault(_game);
 
-var _sport = __webpack_require__(46);
+var _sport = __webpack_require__(47);
 
 var _sport2 = _interopRequireDefault(_sport);
 
-var _search = __webpack_require__(47);
+var _search = __webpack_require__(48);
 
 var _search2 = _interopRequireDefault(_search);
 
@@ -3174,7 +3144,7 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3184,7 +3154,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
@@ -3203,7 +3173,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3225,14 +3195,14 @@ exports.default = function () {
     }
 };
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3242,7 +3212,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
@@ -3290,7 +3260,7 @@ var player = function player() {
 exports.default = player;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3300,13 +3270,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = [];
+var initialState = [{
+    title: ' ',
+    thumb: ' ',
+    source: ' '
+}];
 var newest = function newest() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
@@ -3321,7 +3295,7 @@ var newest = function newest() {
 exports.default = newest;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3331,7 +3305,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
@@ -3354,38 +3328,6 @@ var related = function related() {
 exports.default = related;
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _ActionTypes = __webpack_require__(0);
-
-var Type = _interopRequireWildcard(_ActionTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var initialState = [];
-
-var trending = function trending() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case Type.GET_TRENDING_VIDEO:
-            state = action.trending;
-    }
-    return state;
-};
-
-exports.default = trending;
-
-/***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3396,26 +3338,45 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
+var _axios = __webpack_require__(0);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = [];
+var initialState = [{
+    title: '',
+    thumb: '',
+    source: ' '
+}];
 
-var music = function music() {
+var trending = function trending() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
-        case Type.GET_TRENDING_MUSIC:
-            state = action.music;
+        case Type.GET_TRENDING_VIDEO:
+            var tmpVideo = [];
+            action.trending.forEach(function (video, index) {
+                return _axios2.default.get(video.thumb).then(function (res) {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(function () {});
+            });
+            state = tmpVideo;
+            break;
     }
     return state;
 };
 
-exports.default = music;
+exports.default = trending;
 
 /***/ }),
 /* 44 */
@@ -3428,26 +3389,45 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
+var _axios = __webpack_require__(0);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = [];
+var initialState = [{
+    title: ' ',
+    thumb: ' ',
+    source: ' '
+}];
 
-var movie = function movie() {
+var music = function music() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
-        case Type.GET_TRENDING_MOVIE:
-            state = action.movie;
+        case Type.GET_TRENDING_MUSIC:
+            var tmpVideo = [];
+            action.music.forEach(function (video, index) {
+                return _axios2.default.get(video.thumb).then(function (res) {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(function () {});
+            });
+            state = tmpVideo;
+            break;
     }
     return state;
 };
 
-exports.default = movie;
+exports.default = music;
 
 /***/ }),
 /* 45 */
@@ -3460,26 +3440,45 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
+var _axios = __webpack_require__(0);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = [];
+var initialState = [{
+    title: ' ',
+    thumb: ' ',
+    source: ' '
+}];
 
-var game = function game() {
+var movie = function movie() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
-        case Type.GET_TRENDING_GAME:
-            state = action.game;
+        case Type.GET_TRENDING_MOVIE:
+            var tmpVideo = [];
+            action.movie.forEach(function (video, index) {
+                return _axios2.default.get(video.thumb).then(function (res) {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(function () {});
+            });
+            state = tmpVideo;
+            break;
     }
     return state;
 };
 
-exports.default = game;
+exports.default = movie;
 
 /***/ }),
 /* 46 */
@@ -3492,26 +3491,44 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
+var _axios = __webpack_require__(0);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var initialState = [];
+var initialState = [{
+    title: ' ',
+    thumb: ' ',
+    source: ' '
+}];
 
-var sport = function sport() {
+var game = function game() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
-        case Type.GET_TRENDING_SPORT:
-            state = action.sport;
+        case Type.GET_TRENDING_GAME:
+            var tmpVideo = [];
+            action.game.forEach(function (video, index) {
+                return _axios2.default.get(video.thumb).then(function (res) {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(function () {});
+            });
+            state = tmpVideo;
     }
     return state;
 };
 
-exports.default = sport;
+exports.default = game;
 
 /***/ }),
 /* 47 */
@@ -3524,7 +3541,58 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ActionTypes = __webpack_require__(0);
+var _ActionTypes = __webpack_require__(1);
+
+var Type = _interopRequireWildcard(_ActionTypes);
+
+var _axios = __webpack_require__(0);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var initialState = [{
+    title: ' ',
+    thumb: ' ',
+    source: ' '
+}];
+
+var sport = function sport() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case Type.GET_TRENDING_SPORT:
+            var tmpVideo = [];
+            action.sport.forEach(function (video, index) {
+                return _axios2.default.get(video.thumb).then(function (res) {
+                    if (res.status === 200) {
+                        tmpVideo.push(video);
+                    }
+                }).catch(function () {});
+            });
+            state = tmpVideo;
+            break;
+    }
+    return state;
+};
+
+exports.default = sport;
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ActionTypes = __webpack_require__(1);
 
 var Type = _interopRequireWildcard(_ActionTypes);
 
@@ -3546,13 +3614,13 @@ var search = function search() {
 exports.default = search;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

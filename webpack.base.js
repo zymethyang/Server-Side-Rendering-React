@@ -12,6 +12,10 @@ module.exports = {
                         ['env', { targets: { browers: ['last 2 version'] } }]
                     ]
                 }
+            },
+            {
+                use:['style-loader','css-loader'],
+                test:/\.css$/
             }
         ]
     }
