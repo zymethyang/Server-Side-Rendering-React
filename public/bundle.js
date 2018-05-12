@@ -7218,7 +7218,7 @@ var get_newest_video = exports.get_newest_video = function get_newest_video() {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             _context2.next = 2;
-                            return _axios2.default.get('https://backend-video.herokuapp.com/video/get/8');
+                            return _axios2.default.get('http://localhost:4000/video/get/8');
 
                         case 2:
                             res = _context2.sent;
@@ -57657,7 +57657,7 @@ function syncData(endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var BASE_URL = exports.BASE_URL = 'https://backend-video.herokuapp.com/';
+var BASE_URL = exports.BASE_URL = 'http://localhost:5000/';
 
 /***/ }),
 /* 604 */

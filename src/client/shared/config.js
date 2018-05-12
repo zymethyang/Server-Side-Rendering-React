@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://backend-video.herokuapp.com/';
+export const BASE_URL = 'http://localhost:5000/';
