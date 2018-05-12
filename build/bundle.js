@@ -195,7 +195,7 @@ var get_newest_video = exports.get_newest_video = function get_newest_video() {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             _context2.next = 2;
-                            return _axios2.default.get('http://localhost:5000/video/get/8');
+                            return _axios2.default.get('http://207.148.28.120:5000/video/get/8');
 
                         case 2:
                             res = _context2.sent;
@@ -1757,7 +1757,7 @@ app.get('/', function (req, res) {
             res.send((0, _renderer2.default)(req, store));
         }, 400);
     });
-    //Routes[0].routes[0].newest_video(store);
+    _Routes2.default[0].routes[0].newest_video(store);
     _Routes2.default[0].routes[0].trending_video(store);
     _Routes2.default[0].routes[0].trending_music(store);
     _Routes2.default[0].routes[0].trending_sport(store);
@@ -1984,7 +1984,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function callApi(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://localhost:5000/video/id/' + id
+        url: 'http://207.148.28.120:5000/video/id/' + id
     }).catch(function (err) {
         throw err;
     });
@@ -2039,7 +2039,7 @@ function syncData(endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var BASE_URL = exports.BASE_URL = 'http://localhost:5000/';
+var BASE_URL = exports.BASE_URL = 'http://207.148.28.120:5000/';
 
 /***/ }),
 /* 21 */
@@ -2089,7 +2089,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function trendingAPI() {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://localhost:5000/video/get/50'
+        url: 'http://207.148.28.120:5000/video/get/50'
     }).catch(function (err) {
         throw err;
     });
@@ -2116,7 +2116,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getRelated(id) {
     return (0, _axios2.default)({
         method: 'GET',
-        url: 'http://localhost:5000/video/get/50/' + id
+        url: 'http://207.148.28.120:5000/video/get/50/' + id
     }).catch(function (err) {
         throw err;
     });
